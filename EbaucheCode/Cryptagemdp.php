@@ -10,6 +10,7 @@ $resultat = $con->query($sql);
      $prenom = $visiteur->prenom;
     $mdpcryp = sha1($mdp);
     
-$sql2 = "update visiteur set mdp='$mdpcryp' where id='$id'";
+$sql2 = "update visiteur set rang='$mdpcryp' where id='$id'";
+// $sql2 = "update visiteur set rang='Utilisateur' where id='$id'";
 $res = $con->exec($sql2);   
  }
