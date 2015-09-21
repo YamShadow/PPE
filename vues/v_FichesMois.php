@@ -1,6 +1,6 @@
 <div class="container">
     <br/>
-    <center><h3>Année 2015</h3></center>
+    <center><h3>Année <?php echo date('Y')?></h3></center>
 	<form method="POST" action="">
 	<br/><br/>
 	<center><table>
