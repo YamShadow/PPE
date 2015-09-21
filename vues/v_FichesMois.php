@@ -1,6 +1,6 @@
 <div class="container">
     <br/>
-    <h3>Mois 2015</h3>
+    <center><h3>Année 2015</h3></center>
 	<form method="POST" action="">
 	<br/><br/>
 	<center><table>
