@@ -35,6 +35,14 @@
                <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-success" >Aucun fiches</a>
                
            </li>
+           <li class="smenu">
+               <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-warning" >En traitement</a>
+               
+           </li>
+           <li class="smenu">
+               <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-default" >Historique</a>
+               
+           </li>
            <?php }?>
          </ul>
         
