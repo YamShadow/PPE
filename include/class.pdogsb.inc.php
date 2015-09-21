@@ -298,5 +298,15 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+        
+        public function getFichesMoisEnCours($date)
+        {
+            $req = "select * from fichefrais where mois = '$date'
+                and idEtat = 'CR'";
+            $res = PdoGsb::$monPdo->query($req);
+		$tabCR = $res->fetch();
+		return $tabCR;
+
+        }
 }
 ?>
