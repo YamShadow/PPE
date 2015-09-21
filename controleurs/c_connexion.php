@@ -22,7 +22,7 @@ switch($action){
 			$nom =  $visiteur['nom'];
 			$prenom = $visiteur['prenom'];
                         $rang = $visiteur['rang'];
-			connecter($id,$nom,$prenom);
+			connecter($id,$nom,$prenom, $rang);
 			include("vues/v_sommaire.php");
 		}
 		break;
