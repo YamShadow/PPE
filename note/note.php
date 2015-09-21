@@ -5,7 +5,7 @@ Mission 1 :
 Mehmet:
 - Creation table "Administration" pour les comptables. (Pareil que Visiteur + Rang)
 - modifier le fichier de recherche de connexion pour qu'il parcourt aussi la table Administration en plus de la table visiteur
-- Modifier connexion avec le sha1
+- Mot de passe à crypter (sha1).
 
 Mathieu :
 - Quand connecté, menu avec :
@@ -20,8 +20,6 @@ Mission 2 :
 
 
 
-Tache terminé : 
-Mot de passe à crypter (sha1).
 
 
 Mot de passe : 
