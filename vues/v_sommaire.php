@@ -33,7 +33,7 @@
                
            </li>
            <li class="smenu">
-               <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-default" >Historique</a>
+               <a href='index.php?uc=histoFrais&action=histoFrais' class="btn btn-default" >Historique</a>
                
            </li>
            <?php }?>

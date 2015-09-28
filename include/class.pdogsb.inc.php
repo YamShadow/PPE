@@ -315,5 +315,12 @@ class PdoGsb{
 		return $tabCR;
 
         }
+        public function getLesHistoFrais()
+        {
+                $req = "select * from fichefrais where idEtat = 'VA' or idEtat = 'RB' order by nom DESC";
+		$res = PdoGsb::$monPdo->query($req);
+		$laLigne = $res->fetchAll();
+		return $laLigne
+        }
 }
 ?>
