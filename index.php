@@ -22,6 +22,9 @@ switch($uc){
         case 'comptable' :{
 		include("controleurs/c_comptable.php");break; 
 	}
+        case 'validationFrais' :{
+		include("controleurs/c_validationFrais.php");break; 
+	}
 }
 include("vues/v_pied.php") ;
 ?>

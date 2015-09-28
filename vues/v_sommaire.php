@@ -2,12 +2,9 @@
     <div id="menuGauche">
      <div id="infosUtil">
     
-        <h2>
-    
-</h2>
-    
+        <h2>  
+</h2> 
       </div>  
-        
         <ul id="menuList">
 			<li >
                             <?php if($_SESSION['rang'] = "Comptable"){ ?>
@@ -32,11 +29,7 @@
            if($_SESSION['rang'] = "Comptable")
            { ?>
                <li class="smenu">
-               <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-success" >Aucun fiches</a>
-               
-           </li>
-           <li class="smenu">
-               <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-warning" >En traitement</a>
+               <a href='index.php?uc=validationFrais&action=fichesMois' class="btn btn-success" >Validation des frais</a>
                
            </li>
            <li class="smenu">

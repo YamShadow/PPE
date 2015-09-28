@@ -14,6 +14,8 @@ body{
   margin : auto ;
   border : 0.2em solid black;
   padding : 0.1em;
+  min-width: 800px;
+  min-height: 500px;
 }
 #entete{
   background-color:rgb(72,198,236);
@@ -38,7 +40,7 @@ body{
 	background-color: white;
 	color: rgb(0,85,227);
 	float: left;
-	width: 250px;
+	width: 14%;
 }
 
 #contenu{
@@ -47,7 +49,7 @@ body{
 	background-color: white;
 	border-left :  groove 0.8em #980101;
   margin-top : 1.2em;
-	margin-left: 25%;
+	margin-left: 18%;
 /* permet de fixer une hauteur mini sur les navigateurs modernes */
   min-height:27em;
 /* pour obtenir le m�me effet sur IE, sachant que si le contenu d�passe, il

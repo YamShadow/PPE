@@ -298,5 +298,17 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+        
+        /**
+ * Retourne tout les personnes de la table visiteur
+ 
+* @return $laLigne
+ */
+	public function getLesInfosPersonnes(){
+		$req = "select * from visiteur order by nom ASC";
+		$res = PdoGsb::$monPdo->query($req);
+		$laLigne = $res->fetchAll();
+		return $laLigne;
+	}
 }
 ?>
