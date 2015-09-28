@@ -27,7 +27,13 @@ switch($action){
 		}
 		break;
 	}
+        case 'deconnexion':{
+                deconnecter();
+                include("vues/v_connexion.php");
+		break;
+        }
 	default :{
+                deconnecter();
 		include("vues/v_connexion.php");
 		break;
 	}

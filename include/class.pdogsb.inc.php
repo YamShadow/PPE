@@ -313,7 +313,6 @@ class PdoGsb{
             $res = PdoGsb::$monPdo->query($req);
 		$tabCR = $res->fetch();
 		return $tabCR;
-
         }
         public function getLesHistoFrais()
         {
