@@ -299,16 +299,21 @@ class PdoGsb{
 		PdoGsb::$monPdo->exec($req);
 	}
         
-        /**
- * Retourne tout les personnes de la table visiteur
- 
-* @return $laLigne
- */
 	public function getLesInfosPersonnes(){
 		$req = "select * from visiteur order by nom ASC";
 		$res = PdoGsb::$monPdo->query($req);
 		$laLigne = $res->fetchAll();
 		return $laLigne;
 	}
+
+        public function getFichesMoisEnCours($date)
+        {
+            $req = "select * from fichefrais where mois = '$date'
+                and idEtat = 'CR'";
+            $res = PdoGsb::$monPdo->query($req);
+		$tabCR = $res->fetch();
+		return $tabCR;
+
+        }
 }
 ?>
