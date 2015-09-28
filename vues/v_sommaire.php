@@ -7,9 +7,10 @@
       </div>  
         <ul id="menuList">
 			<li >
-                            <?php if($_SESSION['rang'] = "Comptable"){ ?>
+                            
+                            <?php if($_SESSION['rang'] == "Comptable"){ ?>
                                 Comptable : <br>  
-                               <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ;
+                               <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'];
                             }
                             else { ?>
 				  Utilisateur :<br>
@@ -26,11 +27,10 @@
               <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
            </li><br><br>
            <?php
-           if($_SESSION['rang'] = "Comptable")
+           if($_SESSION['rang'] == "Comptable")
            { ?>
                <li class="smenu">
-               <a href='index.php?uc=validationFrais&action=fichesMois' class="btn btn-success" >Validation des frais</a>
-               
+               <a href='index.php?uc=validationFrais&action=selectionVisiteur' class="btn btn-success" >Validation des frais</a>         
            </li>
            <li class="smenu">
                <a href='index.php?uc=comptable&action=fichesMois' class="btn btn-default" >Historique</a>
@@ -38,10 +38,7 @@
            </li>
            <?php }?>
          </ul>
-        
-        
-        
-        
+
     </div>
     
 
