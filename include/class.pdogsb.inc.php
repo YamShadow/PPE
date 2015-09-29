@@ -321,5 +321,17 @@ class PdoGsb{
 		$laLigne = $res->fetchAll();
 		return $laLigne;
         }
+        public function setLesHistoFrais($valider,$mois)
+        {
+            $i = 0;
+            foreach ($valider as $unValider)
+            {
+                    
+                majEtatFicheFrais($unValider[$i],$mois,RB);
+                $i = $i + 1;
+            }
+            
+            getLesHistoFrais();
+        }
 }
 ?>
