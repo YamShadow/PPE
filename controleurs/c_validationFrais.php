@@ -11,5 +11,12 @@ switch($action){
             $idVisiteur = $_POST['lstVisiteur'];
             $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
             include("vues/v_selectionMois.php");
+            break;
+        case 'Affichage':
+            $idVisiteur = $_POST['idVisiteur'];
+            $leMois =$_POST['lstMois'];
+            $lesInfo = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
+            include("vues/v_ficheMois.php");
+            break;
 }
 ?>
