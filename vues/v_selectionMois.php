@@ -1,7 +1,7 @@
 ﻿ <div id="contenu">
       <h2>Validation des frais par visiteur </h2>
       <h3>Mois à sélectionner : </h3>
-      <form action="index.php?uc=validationFrais&action=Affichage" method="post">
+      <form action="index.php?uc=validationFrais&action=affichage" method="post">
       <div class="corpsForm">
       <p> 
         <label for="lstMois" accesskey="n">Mois : </label>

@@ -197,7 +197,7 @@ class PdoGsb{
 /**
  * Crée une nouvelle fiche de frais et les lignes de frais au forfait pour un visiteur et un mois donnés
  
- * récupère le dernier mois en cours de traitement, met à 'CL' son champs idEtat, crée une nouvelle fiche de frais
+ * récupère le dernier mois en cours de traitement, met à 'CR' son champs idEtat, crée une nouvelle fiche de frais
  * avec un idEtat à 'CR' et crée les lignes de frais forfait de quantités nulles 
  * @param $idVisiteur 
  * @param $mois sous la forme aaaamm
