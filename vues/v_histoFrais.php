@@ -8,16 +8,20 @@
         <td>Télécharger</td>
     </tr>
     
-    <form action="?">
+    <form action="index.php?uc=histoFrais&action=miseAJourHisto">
     <?php
     foreach ($LesHisto as $unHisto)
     {
+            $dateModif =  $LesHisto['dateModif'];
+            $dateModif =  dateAnglaisVersFrancais($dateModif);
+            
         ?>
+    <input type="hidden" name="mois[]" value="<?php echo $LesHisto['mois'];?>">
      
     <tr><td><?php echo $unHisto['idVisiteur']; ?></td>
         <td><?php echo $unHisto['nbJustificatifs']; ?></td>
         <td><?php echo $unHisto['montantValide']; ?></td>
-        <td><?php echo $unHisto['dateModif']; ?></td>
+        <td><?php echo $dateModif; ?></td>
         <td><?php echo $unHisto['idEtat']; ?></td>
         <td><?php if( $unHisto['idEtat'] != 'RB'){ ?> <center><input type="checkbox" name="valider[]" value="<?php echo $unHisto['idVisiteur']; ?>"></center><?php } ?></td>
         <td><center><a href = '' > <img src = 'images/pdf_icon.gif' border = '0'></a></center></td>
