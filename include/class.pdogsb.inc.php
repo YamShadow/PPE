@@ -328,5 +328,27 @@ class PdoGsb{
                 $laLigne = $resMois->fetch();
                 return $laLigne;
         }
+        public function getLesNbCR()
+        {
+                $req = "select * from fichefrais where idEtat = 'CR'";
+		$res = PdoGsb::$monPdo->query($req);
+                $count = $res->rowCount();
+		return $count;
+        }
+        public function setLesCRenCL()
+        {
+           
+                     
+                    $req = "select * from fichefrais where idEtat = 'CR'";
+                    $res = PdoGsb::$monPdo->query($req);
+                    $laLigne = $res->fetchAll();
+                    
+                    $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 
+                    where idEtat = 'CR'";
+                    PdoGsb::$monPdo->exec($req2);
+    
+                    $_SESSION['tabExCR'] = $laLigne;
+                    
+        }
 }
 ?>

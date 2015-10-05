@@ -1,5 +1,6 @@
 <?php
 include("vues/v_sommaire.php");
+
 $action = $_REQUEST['action'];
 switch($action){      
         case 'histoFrais':
@@ -19,6 +20,12 @@ switch($action){
             $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");
 		break;
-            
+        case 'CRenCL':
+            $nbCR = $pdo->getLesNbCR();
+            if($nbCR>1){
+            $pdo->setLesCRenCL();
+            }
+            var_dump($_SESSION['tabExCR']);
+            break;
 }
 ?>
