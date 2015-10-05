@@ -295,7 +295,7 @@ class PdoGsb{
  
 	public function majEtatFicheFrais($idVisiteur,$mois,$etat){
 		$req = "update ficheFrais set idEtat = '$etat', dateModif = now() 
-		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
+		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois ='$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
         
@@ -325,15 +325,10 @@ class PdoGsb{
         {
             foreach ($valider as $unValider)
             {
-                print_r($unValider);
                 $mois = "select mois from fichefrais where idVisiteur='$unValider' and idEtat='VA' ";
                 $resMois = PdoGsb::$monPdo->query($mois);
                 $laLigne = $resMois->fetch();
-                print_r($laLigne);
-                $req = "update ficheFrais set idEtat = 'RB', dateModif = now() 
-		where fichefrais.idvisiteur ='$unValider' and fichefrais.mois = '$laLigne[mois]'";
-		PdoGsb::$monPdo->exec($req);
-               // majEtatFicheFrais($unValider,$laLigne,'RB');  
+                return $laLigne;
             }
         }
 }
