@@ -1,4 +1,8 @@
-﻿    <!-- Division pour le sommaire -->
+﻿ 
+<?php 
+    $nbCR = $pdo->getLesNbCR();
+?>
+<!-- Division pour le sommaire -->
     <div id="menuGauche">
      <div id="infosUtil">
     
@@ -36,7 +40,17 @@
                <a href='index.php?uc=histoFrais&action=histoFrais' class="btn btn-default" >Historique</a>
                
            </li>
-           <?php }?>
+           <li class="smenu">
+               <a href='index.php?uc=histoFrais&action=CRenCL' class="btn btn-default" >CR (<?php echo $nbCR ?>)</a>
+               
+           </li>
+           <?php 
+           
+           
+           
+           }
+           
+           ?>
          </ul>
 
     </div>
