@@ -322,14 +322,11 @@ class PdoGsb{
 		return $laLigne;
         }
         public function setLesHistoFrais($valider)
-        {
-            foreach ($valider as $unValider)
-            {
-                $mois = "select mois from fichefrais where idVisiteur='$unValider' and idEtat='VA' ";
+        {  
+                $mois = "select mois from fichefrais where idVisiteur='$valider' and idEtat='VA' ";
                 $resMois = PdoGsb::$monPdo->query($mois);
                 $laLigne = $resMois->fetch();
                 return $laLigne;
-            }
         }
 }
 ?>

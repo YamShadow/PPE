@@ -7,11 +7,15 @@ switch($action){
             include("vues/v_histoFrais.php");
 		break;
         case 'miseAJour':
-            $idVisiteur = $_REQUEST['valider'];
-            $leMois = $pdo->setLesHistoFrais($idVisiteur);
+            
+            $valider = $_REQUEST['valider'];
+            foreach ($valider as $unValider)
+            {
+            $leMois = $pdo->setLesHistoFrais($unValider);
             print_r($leMois['mois']);
             $etat = 'RB';
-            $pdo->majEtatFicheFrais($idVisiteur,$leMois['mois'],$etat);
+            $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
+            }
             $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");
 		break;
