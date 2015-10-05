@@ -10,26 +10,22 @@
 </h2> 
       </div>  
         <ul id="menuList">
-			<li >
-                            
-                            <?php if($_SESSION['rang'] == "Comptable"){ ?>
-                                Comptable : <br>  
-                               <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'];
-                            }
-                            else { ?>
-				  Utilisateur :<br>
-				<?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ;
-                           } ?>
-			</li>
+            <label>
+                <?php if($_SESSION['rang'] == "Comptable"){ ?> Comptable : <br>  <?php } else { ?> Utilisateur :<br> <?php } ?>
+            </label>
+            <li class="smenu">
+                <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ; ?>
+            </li>
+            <li class="smenu">
+              <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
+           </li><br/>
            <li class="smenu">
               <a href="index.php?uc=gererFrais&action=saisirFrais" title="Saisie fiche de frais ">Saisie fiche de frais</a>
            </li>
            <li class="smenu">
               <a href="index.php?uc=etatFrais&action=selectionnerMois" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
            </li>
- 	   <li class="smenu">
-              <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
-           </li><br><br>
+ 	   <br><br>
            <?php
            if($_SESSION['rang'] == "Comptable")
            { ?>
@@ -41,7 +37,7 @@
                
            </li>
            <li class="smenu">
-               <a href='index.php?uc=histoFrais&action=CRenCL' class="btn btn-default" >CR (<?php echo $nbCR ?>)</a>
+               <a href='index.php?uc=histoFrais&action=CRenCL' class="btn btn-default" >Cloturer les fiches (<?php echo $nbCR ?>)</a>
                
            </li>
            <?php 

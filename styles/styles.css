@@ -1,7 +1,7 @@
 /* Styles des divisions principales de la page */
 body{
   background-color: #77AADD;
-	background-image: url(https://newevolutiondesigns.com/images/freebies/texture-wallpaper-10.jpg);
+	background-image: url(http://yamishadow.fr/test/images/background.jpg);
 	background-repeat: repeat-x;
   margin:0% 0%;
   padding : 0.6em;
@@ -18,10 +18,10 @@ body{
   min-height: 500px;
 }
 #entete{
-  background-color:rgb(72,198,236);
-	color : #980101;
-	border: solid 0.1em #980101;
-	height: 154px;
+  background-color:rgb(29, 41, 65);
+	color : #66A3D3;
+	border: solid 0.1em #66A3D3;
+	height: 160px;
 	padding: 0em;
 	border-collapse: separate;
 }
@@ -35,9 +35,8 @@ body{
 	border-collapse: separate;
 }
 #menuGauche {
-	margin-top : 0.8em;
+	margin-top : 0.1em;
 	padding: 1em;
-	background-color: white;
 	color: rgb(0,85,227);
 	float: left;
 	width: 14%;
@@ -47,7 +46,7 @@ body{
 	border: none;
 	padding: 1.3em;
 	background-color: white;
-	border-left :  groove 0.8em #980101;
+	border-left :  groove 0.8em #66A3D3;
   margin-top : 1.2em;
 	margin-left: 18%;
 /* permet de fixer une hauteur mini sur les navigateurs modernes */
@@ -75,7 +74,7 @@ ul#menuList{
 /* style � appliquer aux �l�ments de la balise ul d'identifiant menulist */
 ul#menuList li {
     position:relative;
-    margin:0px;
+    margin-left:15px;
     padding:0px;
 }
 
@@ -93,6 +92,8 @@ ul#menuList a:hover {
 
 #entete #logoGSB {
   float : left;
+  padding-left: 15px;
+  padding-top: 3px;
   width : 238px;
   height : 152px;
 }
@@ -229,12 +230,12 @@ taille de caract�res l�g�rement sup�rieure � la normale */
 
 /* Style pour les lignes d'en-t�te des tableaux */
 #contenu th {  
-   background-color:#77AADD;
+   background-color:#66A3D3;
    height:21px;
    text-align:left;
    vertical-align:top;
    font-weight:bold;
-   border-bottom:0.1em solid #777777;
+   border-bottom:0.1em solid #1D2941;
    font-size:1.1em;
 } 
 
@@ -252,7 +253,7 @@ table.listeLegere {
 
 /* Tableaux quadrill�s utilis�s pour l'affichage de listes avec contenu l�ger*/ 
 table.listeLegere th, table.listeLegere td {
-  border : dotted rgb(178,207,81) 0.1em;
+  border : dotted rgb(29, 41, 65) 0.1em;
   padding:0.5em;
   vertical-align : top;
   text-align : left;
