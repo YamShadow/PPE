@@ -321,17 +321,20 @@ class PdoGsb{
 		$laLigne = $res->fetchAll();
 		return $laLigne;
         }
-        public function setLesHistoFrais($valider,$mois)
+        public function setLesHistoFrais($valider)
         {
-            $i = 0;
             foreach ($valider as $unValider)
             {
-                    
-                majEtatFicheFrais($unValider[$i],$mois,RB);
-                $i = $i + 1;
+                print_r($unValider);
+                $mois = "select mois from fichefrais where idVisiteur='$unValider' and idEtat='VA' ";
+                $resMois = PdoGsb::$monPdo->query($mois);
+                $laLigne = $resMois->fetch();
+                print_r($laLigne);
+                $req = "update ficheFrais set idEtat = 'RB', dateModif = now() 
+		where fichefrais.idvisiteur ='$unValider' and fichefrais.mois = '$laLigne[mois]'";
+		PdoGsb::$monPdo->exec($req);
+               // majEtatFicheFrais($unValider,$laLigne,'RB');  
             }
-            
-            getLesHistoFrais();
         }
 }
 ?>

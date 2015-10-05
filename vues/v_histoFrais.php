@@ -8,16 +8,14 @@
         <td>Télécharger</td>
     </tr>
     
-    <form action="index.php?uc=histoFrais&action=miseAJourHisto">
+    <form method="POST" action="index.php?uc=histoFrais&action=miseAJour">
     <?php
     foreach ($LesHisto as $unHisto)
     {
-            $dateModif =  $LesHisto['dateModif'];
+            $dateModif =  $unHisto['dateModif'];
             $dateModif =  dateAnglaisVersFrancais($dateModif);
             
         ?>
-    <input type="hidden" name="mois[]" value="<?php echo $LesHisto['mois'];?>">
-     
     <tr><td><?php echo $unHisto['idVisiteur']; ?></td>
         <td><?php echo $unHisto['nbJustificatifs']; ?></td>
         <td><?php echo $unHisto['montantValide']; ?></td>

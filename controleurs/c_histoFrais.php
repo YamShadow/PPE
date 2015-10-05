@@ -8,8 +8,10 @@ switch($action){
 		break;
         case 'miseAJour':
             $valider = $_REQUEST['valider'];
-            $mois = $_REQUEST['mois'];
-            $LesHisto = $pdo->setLesHistoFrais($valider,$mois);
+            // print_r($valider);
+            $pdo->setLesHistoFrais($valider);
+
+            $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");
 		break;
             
