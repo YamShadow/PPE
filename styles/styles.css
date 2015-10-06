@@ -2,7 +2,7 @@
 body{
   background-color: #77AADD;
 	background-image: url(http://yamishadow.fr/test/images/background.jpg);
-	background-repeat: repeat-x;
+	background-repeat: fixed;
   margin:0% 0%;
   padding : 0.6em;
   font-family:"Trebuchet MS",Verdana,Geneva,Arial,Helvetica,sans-serif;
@@ -57,9 +57,19 @@ body{
   height:27em;
 }
 
+#contenu::-webkit-scrollbar {
+    width: 0.7em;
+	-webkit-box-shadow: inset 0 0 6px rgb(29, 41, 65);
+}
+#contenu::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgb(102, 163, 211); 
+	width: 1em;
+}
+
 /* pour r�tablir le mauvais effet sur les nav. modernes */
 html>body #contenu{
-  height:auto;
+  height:61%;overflow: auto;
 }
 
 /* style � appliquer � la balise ul d'identifiant menulist */

@@ -5,11 +5,11 @@
                 <table style="color:white;" border="1">
                     <tr><th>Repas midi</th><th>Nuitée </th><th>Etape</th><th>Km </th><th>Situation</th><th>Prix</th></tr>
                         
-                        <tr align="center"><td width="80" ><input type="text" size="3" name="repas" value="<?php echo $lesInfo[3]['quantite'] ?>"/></td>
-				<td width="80"><input type="text" size="3" name="nuitee" value="<?php echo $lesInfo[2]['quantite'] ?>"/></td> 
-				<td width="80"> <input type="text" size="3" name="etape" value="<?php echo $lesInfo[0]['quantite'] ?>"/></td>
-				<td width="80"> <input type="text" size="3" name="km" value="<?php echo $lesInfo[1]['quantite'] ?>"/></td>
-				<td width="80">
+                        <tr><td align=center width="80" ><input type="text" size="3" name="repas" value="<?php echo $lesInfo[3]['quantite'] ?>"/></td>
+				<td align=center width="80"><input type="text" size="3" name="nuitee" value="<?php echo $lesInfo[2]['quantite'] ?>"/></td> 
+				<td align=center width="80"> <input type="text" size="3" name="etape" value="<?php echo $lesInfo[0]['quantite'] ?>"/></td>
+				<td align=center width="80"> <input type="text" size="3" name="km" value="<?php echo $lesInfo[1]['quantite'] ?>"/></td>
+				<td align=center width="80">
                                     <?php if($lesInfoFrais['idEtat']== 'CL'){ ?>
                                         <select size="3" name="situ">
 						<option value="E" selected>Enregistré</option>
@@ -35,11 +35,11 @@
 						<option value="R">Remboursé</option>
 					</select>
                                     <?php } ?></td>
-                                <td width="300"><span style="color: black"<p>
-                                            <?php echo $lesInfo[3]['libelle'].": ".$lesInfo[3]['quantite']."*prix = SOMME" ?> <br/>
-                                            <?php echo $lesInfo[2]['libelle'].": ".$lesInfo[2]['quantite']."*prix = SOMME" ?> <br/> 
-                                            <?php echo $lesInfo[0]['libelle'].": ".$lesInfo[0]['quantite']."*prix = SOMME" ?> <br/> 
-                                            <?php echo $lesInfo[1]['libelle'].": ".$lesInfo[1]['quantite']."*prix = SOMME" ?> <br/>
+                                <td width="300"><span style="color: black; float: left; padding-left:5px"<p>
+                                            <?php echo $lesInfo[3]['libelle'].": ".$lesInfo[3]['quantite']."*".$infoMontant[3]['montant']."€ = <strong>".$lesInfo[3]['quantite']*$infoMontant[3]['montant']."€</strong>" ?> <br/>
+                                            <?php echo $lesInfo[2]['libelle'].": ".$lesInfo[2]['quantite']."*".$infoMontant[2]['montant']."€ = <strong>".$lesInfo[2]['quantite']*$infoMontant[2]['montant']."€</strong>" ?> <br/> 
+                                            <?php echo $lesInfo[0]['libelle'].": ".$lesInfo[0]['quantite']."*".$infoMontant[0]['montant']."€ = <strong>".$lesInfo[0]['quantite']*$infoMontant[0]['montant']."€</strong>" ?> <br/> 
+                                            <?php echo $lesInfo[1]['libelle'].": ".$lesInfo[1]['quantite']."*".$infoMontant[1]['montant']."€ = <strong>".$lesInfo[1]['quantite']*$infoMontant[1]['montant']."€</strong>" ?> <br/>
                                     </span></td>
 				</tr>
 		</table>
@@ -52,9 +52,10 @@
 		<table style="color:white;" border="1">
 			<tr><th>Date</th><th>Libellé </th><th>Montant</th><th>Situation</th><th>Actions</th></tr>
                         <?php foreach($lesInfoHorsFrais as $unInfoHorsFrais){ ?>
-			<tr align="center"><td width="100" ><input type="text" size="12" name="hfDate1" value="<?php echo $unInfoHorsFrais['date'] ?>"/></td>
-				<td width="220"><input type="text" size="30" name="hfLib1" value="<?php echo $unInfoHorsFrais['libelle'] ?>"/></td> 
-				<td width="90"> <input type="text" size="10" name="hfMont1" value="<?php echo $unInfoHorsFrais['montant'] ?>"/></td>
+                        <input type="hidden" name="idHorsFrais[]" value="<?php echo $unInfoHorsFrais['id'] ?>">
+			<tr align="center"><td width="100" ><input type="text" size="12" name="hfDate1[]" value="<?php echo $unInfoHorsFrais['date'] ?>"/></td>
+				<td width="220"><input type="text" size="30" name="hfLib1[]" value="<?php echo $unInfoHorsFrais['libelle'] ?>"/></td> 
+				<td width="90"> <input type="text" size="10" name="hfMont1[]" value="<?php echo $unInfoHorsFrais['montant'] ?>"/></td>
 				<td width="80"> 
 					<select size="3" name="hfSitu1[]">
 						<option value="E">Enregistré</option>

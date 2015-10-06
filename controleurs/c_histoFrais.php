@@ -13,7 +13,6 @@ switch($action){
             foreach ($valider as $unValider)
             {
             $leMois = $pdo->setLesHistoFrais($unValider);
-            print_r($leMois['mois']);
             $etat = 'RB';
             $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
             }

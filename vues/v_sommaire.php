@@ -37,7 +37,7 @@
                
            </li>
            <li class="smenu">
-               <a href='index.php?uc=histoFrais&action=CRenCL' class="btn btn-default" >Cloturer les fiches (<?php echo $nbCR ?>)</a>
+               <a href='index.php?uc=histoFrais&action=CRenCL' class="btn btn-default" onclick="return confirm('Voulez-vous vraiment cloturer les fiches en cours ?');">Cloturer les fiches (<?php echo $nbCR ?>)</a>
                
            </li>
            <?php 

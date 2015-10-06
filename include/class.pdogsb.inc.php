@@ -337,18 +337,29 @@ class PdoGsb{
         }
         public function setLesCRenCL()
         {
-           
-                     
-                    $req = "select * from fichefrais where idEtat = 'CR'";
-                    $res = PdoGsb::$monPdo->query($req);
-                    $laLigne = $res->fetchAll();
-                    
-                    $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 
-                    where idEtat = 'CR'";
-                    PdoGsb::$monPdo->exec($req2);
-    
-                    $_SESSION['tabExCR'] = $laLigne;
-                    
+                $req = "select * from fichefrais where idEtat = 'CR'";
+                $res = PdoGsb::$monPdo->query($req);
+                $laLigne = $res->fetchAll();                 
+                $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 
+                where idEtat = 'CR'";
+                PdoGsb::$monPdo->exec($req2);
+               $_SESSION['tabExCR'] = $laLigne;      
         }
+        public function getLesMontantFrais(){
+            
+                $req = "select * from fraisforfait";
+                $res = PdoGsb::$monPdo->query($req);
+                $laLigne = $res->fetchAll();
+                return $laLigne;
+        }
+        
+        public function majHorsFrais($idVisiteur, $mois, $unIdFrais, $montant, $libelle, $date){
+	
+			$req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle',
+                               lignefraishorsforfait.montant = $montant, lignefraishorsforfait.date = '$date' 
+			where lignefraishorsforfait.idvisiteur = '$idVisiteur' and lignefraishorsforfait.mois = '$mois'
+			and lignefraishorsforfait.id = '$unIdFrais'";
+			PdoGsb::$monPdo->exec($req);	
+	}
 }
 ?>

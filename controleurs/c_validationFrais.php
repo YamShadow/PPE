@@ -17,7 +17,7 @@ switch($action){
             $idVisiteur = $_POST['idVisiteur'];
             $leMois =$_POST['lstMois'];
             $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
-            
+            $infoMontant = $pdo->getLesMontantFrais();
             $lesInfo = $pdo->getLesFraisForfait($idVisiteur,$leMois);
             $lesInfoHorsFrais = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
             include("vues/v_ficheMois.php");
@@ -48,8 +48,23 @@ switch($action){
             header('location: index.php?uc=validationFrais&action=selectionVisiteur');
             break;
         case 'modificationHorsFrais':
-            $mois = $_REQUEST['lemois'];
+            $libelle = $_REQUEST['hfLib1'];
+            $montant = $_REQUEST['hfMont1'];
             $idVisiteur = $_REQUEST['idvisiteur'];
+            $mois = $_REQUEST['lemois'];
+            $idHorsFrais = $_REQUEST['idHorsFrais'];
+            $dateFrais = $_REQUEST['hfDate1'];
+                    $cpt = 0;
+                    foreach($dateFrais as $uneDateFrais){
+                        $dateFrais[$cpt] = dateFrancaisVersAnglais($uneDateFrais);
+                        $cpt ++;
+                    }
+            print_r($dateFrais); 
+            $cpt = 0;
+            foreach($idHorsFrais as $unIdHorsFrais){
+            $pdo->majHorsFrais($idVisiteur, $mois, $unIdHorsFrais, $montant[$cpt], $libelle[$cpt], $dateFrais[$cpt]);
+            $cpt ++;
+            }
             $nbJustificatifs = $_REQUEST['hcMontant'];
             $pdo->majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs);
             header('location: index.php?uc=validationFrais&action=selectionVisiteur');
