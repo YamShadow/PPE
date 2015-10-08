@@ -18,16 +18,18 @@ switch($action){
             $leMois =$_POST['lstMois'];
             $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
             $infoMontant = $pdo->getLesMontantFrais();
+           
             $lesInfo = $pdo->getLesFraisForfait($idVisiteur,$leMois);
-            $lesInfoHorsFrais = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
+            $lesInfoHorsFrais = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois); 
             include("vues/v_ficheMois.php");
             }
             else{ header('location: index.php?uc=validationFrais&action=selectionVisiteur'); }     
             break;
         case 'suppression':
             $idHorsFrais = $_REQUEST['id'];
-            $pdo->supprimerFraisHorsForfait($idHorsFrais);
-            header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+            $libelle = "SUPPRIMER - ".$_REQUEST['libelle'];
+            $pdo->supprimerFraisHorsForfaitComptable($idHorsFrais, $libelle);
+           header('location: index.php?uc=validationFrais&action=selectionVisiteur');
             break;
         case 'modificationFrais' :
             $mois = $_REQUEST['lemois'];
@@ -41,32 +43,67 @@ switch($action){
             $pdo->majFraisForfait($idVisiteur , $mois, $keyQte);
             if(isset($_REQUEST['situ'])){
                 if($_REQUEST['situ'] == 'E'){ $etat = 'CL'; }
-                else if($_REQUEST['situ'] == 'V'){ $etat = 'VA'; }
-                else { $etat = 'RB'; }
+                else if($_REQUEST['situ'] == 'V'){ $etat = 'VA';
+                $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$mois);
+                $montant = $lesInfoFrais['montantValide']+$_REQUEST['montant'];
+                $pdo->setMontantFrais($idVisiteur, $mois, $montant);
+                }
+                else { $etat = 'RB';
+                $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$mois);
+                $montant = $lesInfoFrais['montantValide']+$_REQUEST['montant'];
+                $pdo->setMontantFrais($idVisiteur, $mois, $montant);
+                }
                 $pdo->majEtatFicheFrais($idVisiteur,$mois,$etat);
             }
-            header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+             header('location: index.php?uc=validationFrais&action=selectionVisiteur');
             break;
         case 'modificationHorsFrais':
             $libelle = $_REQUEST['hfLib1'];
             $montant = $_REQUEST['hfMont1'];
             $idVisiteur = $_REQUEST['idvisiteur'];
             $mois = $_REQUEST['lemois'];
-            $idHorsFrais = $_REQUEST['idHorsFrais'];
+            $idHorsFrais = $_REQUEST['idHorsFrais'];         
+            $lesSituations = $_REQUEST['hfSitu1'];
             $dateFrais = $_REQUEST['hfDate1'];
                     $cpt = 0;
                     foreach($dateFrais as $uneDateFrais){
                         $dateFrais[$cpt] = dateFrancaisVersAnglais($uneDateFrais);
                         $cpt ++;
-                    }
-            print_r($dateFrais); 
+                    } 
             $cpt = 0;
             foreach($idHorsFrais as $unIdHorsFrais){
             $pdo->majHorsFrais($idVisiteur, $mois, $unIdHorsFrais, $montant[$cpt], $libelle[$cpt], $dateFrais[$cpt]);
-            $cpt ++;
+            if($_REQUEST['bool'][$cpt] != 1 && $lesSituations[$cpt] == 'V' && $_REQUEST['payer'][$cpt] !=1){
+                echo " test"+$cpt;
+                $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$mois);
+                $montant = $lesInfoFrais['montantValide']+$_REQUEST['hfMont1'][$cpt];
+                $pdo->setMontantFrais($idVisiteur, $mois, $montant);
+                $pdo->horsFraisPayer($unIdHorsFrais);
+                   }
+                 $cpt ++;
             }
+           
             $nbJustificatifs = $_REQUEST['hcMontant'];
             $pdo->majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs);
+            header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+            break;
+            
+        case 'reportMois':
+            $idFrais = $_REQUEST['id'];
+            $mois = $_REQUEST['mois'];
+            $isoleMois = substr($mois, 4);
+            $isoleAnnee = substr($mois, 0, -2);
+            if($isoleMois < 12){
+                $isoleMois ++;
+                if($isoleMois<10){ $isoleMois = "0".$isoleMois; }
+                $mois = $isoleAnnee.''.$isoleMois;
+            }
+            else{
+                $isoleAnnee ++;
+                $isoleMois = '01';
+                $mois = $isoleAnnee.''.$isoleMois;        
+            }
+            $pdo->majMoisHorsFrais($idFrais, $mois);
             header('location: index.php?uc=validationFrais&action=selectionVisiteur');
             break;
 }

@@ -28,7 +28,10 @@ switch($uc){
         case 'histoFrais' :{
 		include("controleurs/c_histoFrais.php");break; 
 	}
+        
 }
+if($_REQUEST['uc'] != 'pdf'){
 include("vues/v_pied.php") ;
+}
+//$config['url_rewriting'] = 'mod_rewrite';
 ?>
-

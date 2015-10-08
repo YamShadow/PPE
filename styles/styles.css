@@ -188,7 +188,8 @@ taille de caract�res l�g�rement sup�rieure � la normale */
    background-color:rgb(237,210,229);
    color:rgb(203,28,128);
    font-size:1.1em;
-   width:95%;
+    width: 79%;
+    margin-left: 199px;
 }
 .centre {
   text-align:center;
@@ -304,6 +305,4 @@ table.listeLegere th.libelle{
 
 #contenu img {
   height : 28px;
-  float : left;
-
 }

@@ -20,9 +20,7 @@ switch($action){
 		include("vues/v_listeMois.php");
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$leMois);
-                print($lesFraisHorsForfait);
 		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
-                // print_r($lesInfosFicheFrais);
 		$numAnnee =substr( $leMois,0,4);
 		$numMois =substr( $leMois,4,2);
 		$libEtat = $lesInfosFicheFrais['libEtat'];

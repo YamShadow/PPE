@@ -22,7 +22,7 @@
         <td><?php echo $dateModif; ?></td>
         <td><?php echo $unHisto['idEtat']; ?></td>
         <td><?php if( $unHisto['idEtat'] != 'RB'){ ?> <center><input type="checkbox" name="valider[]" value="<?php echo $unHisto['idVisiteur']; ?>"></center><?php } ?></td>
-        <td><center><a href = '' > <img src = 'images/pdf_icon.gif' border = '0'></a></center></td>
+    <td><center><a href = '' > <img src = 'images/pdf_icon.gif' border = '0'></a></center></td>
     </tr>
 
     <?php

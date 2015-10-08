@@ -142,7 +142,7 @@ class PdoGsb{
 		$lesCles = array_keys($lesFrais);
 		foreach($lesCles as $unIdFrais){
 			$qte = $lesFrais[$unIdFrais];
-			$req = "update lignefraisforfait set lignefraisforfait.quantite = $qte
+			$req = "update lignefraisforfait set lignefraisforfait.quantite = $qte,
 			where lignefraisforfait.idvisiteur = '$idVisiteur' and lignefraisforfait.mois = '$mois'
 			and lignefraisforfait.idfraisforfait = '$unIdFrais'";
 			PdoGsb::$monPdo->exec($req);
@@ -232,9 +232,14 @@ class PdoGsb{
 */
 	public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant){
 		$dateFr = dateFrancaisVersAnglais($date);
-		$req = "insert into lignefraishorsforfait 
-		values('','$idVisiteur','$mois','$libelle','$dateFr','$montant')";
-		PdoGsb::$monPdo->exec($req);
+                print_r($dateFr);
+		try{
+                $req = "insert into lignefraishorsforfait 
+		values('','$idVisiteur','$mois','$libelle','$dateFr','$montant', NULL, 0)";
+                PdoGsb::$monPdo->exec($req);}
+                catch(Exception $e){
+                    echo 'Exception recu : ', $e->getMessage(), "\n";
+                }
 	}
 /**
  * Supprime le frais hors forfait dont l'id est passé en argument
@@ -308,9 +313,9 @@ class PdoGsb{
 
         public function getFichesMoisEnCours($date)
         {
-            $req = "select * from fichefrais where mois = '$date'
-                and idEtat = 'CR'";
-            $res = PdoGsb::$monPdo->query($req);
+                $req = "select * from fichefrais where mois = '$date'
+                        and idEtat = 'CR'";
+                $res = PdoGsb::$monPdo->query($req);
 		$tabCR = $res->fetch();
 		return $tabCR;
         }
@@ -343,7 +348,7 @@ class PdoGsb{
                 $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 
                 where idEtat = 'CR'";
                 PdoGsb::$monPdo->exec($req2);
-               $_SESSION['tabExCR'] = $laLigne;      
+                $_SESSION['tabExCR'] = $laLigne;      
         }
         public function getLesMontantFrais(){
             
@@ -355,11 +360,36 @@ class PdoGsb{
         
         public function majHorsFrais($idVisiteur, $mois, $unIdFrais, $montant, $libelle, $date){
 	
-			$req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle',
-                               lignefraishorsforfait.montant = $montant, lignefraishorsforfait.date = '$date' 
-			where lignefraishorsforfait.idvisiteur = '$idVisiteur' and lignefraishorsforfait.mois = '$mois'
-			and lignefraishorsforfait.id = '$unIdFrais'";
-			PdoGsb::$monPdo->exec($req);	
+                $req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle',
+                        lignefraishorsforfait.montant = $montant, lignefraishorsforfait.date = '$date' 
+                        where lignefraishorsforfait.idvisiteur = '$idVisiteur' and lignefraishorsforfait.mois = '$mois'
+                        and lignefraishorsforfait.id = '$unIdFrais'";
+                PdoGsb::$monPdo->exec($req);	
 	}
+        public function setMontantFrais($idVisiteur, $mois, $montant){
+                
+                $req = "update fichefrais set fichefrais.montantValide = '$montant'
+                        where fichefrais.idvisiteur = '$idVisiteur' and fichefrais.mois = '$mois'";
+                PdoGsb::$monPdo->exec($req);
+        }
+        
+       public function supprimerFraisHorsForfaitComptable($idFrais, $libelle){
+                $req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle', 
+                        lignefraishorsforfait.supprimer = '1'
+                        where lignefraishorsforfait.id =$idFrais ";
+                PdoGsb::$monPdo->exec($req);
+	}
+        
+        public function horsFraisPayer($id){
+                $req="update lignefraishorsforfait set lignefraishorsforfait.payer = 1
+                        where lignefraishorsforfait.id = $id";
+                PdoGsb::$monPdo->exec($req);      
+        }
+        
+        function majMoisHorsFrais($idFrais, $mois){
+                $req = "update lignefraishorsforfait set lignefraishorsforfait.mois = '$mois'
+                        where lignefraishorsforfait.id = $idFrais";
+                PdoGsb::$monPdo->exec($req);
+           }
 }
 ?>

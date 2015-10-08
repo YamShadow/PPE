@@ -1,12 +1,12 @@
 <div id="contenu">
       <h2>Validation des frais par visiteur </h2>
       <h3>Visiteur à sélectionner : </h3>
-      <form action="index.php?uc=validationFrais&action=selectionMois" method="post" name="formValidSelectionVisiteur">
+      <form action="index.php?uc=validationFrais&action=selectionMois" method="post" OnChange="submit()" name="myform">
       <div class="corpsForm">
          
       <p>
 	 
-        <label for="titre" accesskey="n">Mois : </label>
+        <label for="titre" accesskey="n">Visiteur : </label>
         <select id="lstVisiteur" name="lstVisiteur">
             <?php foreach($lesPersonnes as $unPersonne){ ?>
                 <option value="<?php echo $unPersonne['id'] ?>"><?php echo $unPersonne['nom'] ?></option>

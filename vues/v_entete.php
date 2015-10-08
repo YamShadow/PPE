@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
     
   </head>
-  <body>
+  <body onload="onLoadDo()">
     <div id="page">
       <div id="entete">
         <img src="./images/logo.png" id="logoGSB" alt="Laboratoire Galaxy-Swiss Bourdin" title="Laboratoire Galaxy-Swiss Bourdin" />
