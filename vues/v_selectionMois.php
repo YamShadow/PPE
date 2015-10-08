@@ -1,7 +1,7 @@
 ﻿ <div id="contenu">
       <h2>Validation des frais par visiteur </h2>
       <h3>Mois à sélectionner : </h3>
-      <form action="index.php?uc=validationFrais&action=affichage" method="post" OnChange="submit()" name="myform">
+      <form action="http://localhost/SLAM5/PPE/Fiche-Comptable" method="post" OnChange="submit()" name="myform">
       <div class="corpsForm">
       <p> 
         <label for="lstMois" accesskey="n">Mois : </label>

@@ -1,7 +1,7 @@
 <div id="contenu">
 <!-- <form name="formValidFrais" method="post" action=""> -->
 	<div><h2>Frais au forfait </h2></div>
-        <form action="index.php?uc=validationFrais&action=modificationFrais" method="POST">
+        <form action="http://localhost/SLAM5/PPE/Modification-Frais-Comptable" method="POST">
                 <table style="color:white;" border="1">
                     <tr><th>Repas midi</th><th>Nuitée </th><th>Etape</th><th>Km </th><th>Situation</th><th>Prix</th></tr>
                         
@@ -47,27 +47,27 @@
             <input type="hidden" value="<?php echo $leMois ?>" name="lemois">
             <input type="hidden" value="<?php echo $idVisiteur ?>" name="idvisiteur">
             <input type="hidden" value="<?php echo $montant ?>" name="montant">
-            <p class="titre" /><label class="titre">Montant total des frais forfaits : <strong><?php echo $montant ?>€</strong></label><span style="float: right; padding-right: 25px"><input class="zone"type="reset" /><input class="zone"type="submit" /></span>
+            <p class="titre" /><label class="titre">Montant total des frais forfaits : <strong><?php echo $montant ?>€</strong></label> <?php if($lesInfoFrais['idEtat']== 'CR' || $lesInfoFrais['idEtat']== 'CL') { ?><span style="float: right; padding-right: 25px"><input class="zone"type="reset" /><input class="zone"type="submit" /></span><?php } ?>
         </form>
 		<p class="titre" /><div style="clear:left;"><h2>Hors Forfait</h2></div>
                 <?php $montantHF = 0; ?>
-                <form action="index.php?uc=validationFrais&action=modificationHorsFrais" method="POST" >
+                <form action="http://localhost/SLAM5/PPE/Modification-Hors-Frais-Comptable" method="POST" >
 		<table style="color:white;" border="1">
 			<tr><th>Date</th><th>Libellé </th><th>Montant</th><th>Situation</th><th>Actions</th></tr>
                         <?php foreach($lesInfoHorsFrais as $unInfoHorsFrais){ ?>
                         <input type="hidden" name="bool[]" value="<?php echo $unInfoHorsFrais['supprimer'] ?>">
                         <input type="hidden" name="payer[]" value="<?php echo $unInfoHorsFrais['payer'] ?>">
                         <input type="hidden" name="idHorsFrais[]" value="<?php echo $unInfoHorsFrais['id'] ?>">
-			<tr align="center"><td width="100" ><input type="text" size="12" name="hfDate1[]"  value="<?php echo $unInfoHorsFrais['date'] ?>"/></td>
-                                <td width="220"><input type="text" size="30" name="hfLib1[]" value="<?php echo $unInfoHorsFrais['libelle'] ?>"/></td> 
-				<td width="90"> <input type="text" size="10" name="hfMont1[]" value="<?php echo $unInfoHorsFrais['montant'] ?>"/></td>
+			<tr align="center"><td width="80" ><input type="text" size="10" name="hfDate1[]"  value="<?php echo $unInfoHorsFrais['date'] ?>"/></td>
+                                <td width="280"><input type="text" size="37" name="hfLib1[]" value="<?php echo $unInfoHorsFrais['libelle'] ?>"/></td> 
+				<td width="50"> <input type="text" size="8" name="hfMont1[]" value="<?php echo $unInfoHorsFrais['montant'] ?>"/></td>
 				<?php $montantHF += $unInfoHorsFrais['montant']; ?>
-                                <td width="80"> 
+                                <td width="100"> 
                                     <select size="3" name="hfSitu1[]">
 						<option value="E" <?php if( $unInfoHorsFrais['payer'] != 1) { ?> selected <?php } ?>>Non payer</option>
 						<option value="V" <?php if( $unInfoHorsFrais['payer'] == 1) { ?> selected <?php } ?>>Payer</option>
                                 </select></td>
-                                        <td width="80"><?php if($unInfoHorsFrais['supprimer'] != 1 || $unInfoHorsFrais['payer'] == 1) { ?><a href="index.php?uc=validationFrais&action=suppression&id=<?php echo $unInfoHorsFrais['id'] ?>&libelle=<?php echo $unInfoHorsFrais['libelle'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');"><img src="./images/icon-supprimer.jpg" title="Supprimer la ligne de frais" /></a>&nbsp&nbsp&nbsp&nbsp<a href="index.php?uc=validationFrais&action=reportMois&id=<?php echo $unInfoHorsFrais['id'] ?>&mois=<?php echo $unInfoHorsFrais['mois'] ?>" onclick="return confirm('Voulez-vous vraiment reporter ce frais?');">Reporter</a><?php } ?></td>
+                                <td width="120"><?php if($unInfoHorsFrais['supprimer'] != 1 || $unInfoHorsFrais['payer'] == 1) { ?><a href="index.php?uc=validationFrais&action=suppression&id=<?php echo $unInfoHorsFrais['id'] ?>&libelle=<?php echo $unInfoHorsFrais['libelle'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');"><img src="./images/icon-supprimer.jpg" title="Supprimer la ligne de frais" /></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="index.php?uc=validationFrais&action=reportMois&id=<?php echo $unInfoHorsFrais['id'] ?>&mois=<?php echo $unInfoHorsFrais['mois'] ?>" onclick="return confirm('Voulez-vous vraiment reporter ce frais?');"><img src="./images/report-icon.png" title="reporter le frais  />"</a><?php } ?></td>
 				</tr>
                         <?php } ?>
 		</table>		

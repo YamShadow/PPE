@@ -1,7 +1,7 @@
 ﻿ <div id="contenu">
       <h2>Mes fiches de frais</h2>
       <h3>Mois à sélectionner : </h3>
-      <form action="index.php?uc=etatFrais&action=voirEtatFrais" method="post">
+      <form action="http://localhost/SLAM5/PPE/Mes-Fiches-Frais" method="post" name="myform">
       <div class="corpsForm">
          
       <p>

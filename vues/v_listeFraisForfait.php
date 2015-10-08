@@ -1,7 +1,7 @@
 <div id="contenu">
       <h2>Renseigner ma fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h2>
          
-      <form method="POST"  action="index.php?uc=gererFrais&action=validerMajFraisForfait">
+      <form method="POST"  action="http://localhost/SLAM5/PPE/Modification-Frais-Forfait">
       <div class="corpsForm">
           
           <fieldset>

@@ -1,7 +1,7 @@
 <div id="contenu">
       <h2>Validation des frais par visiteur </h2>
       <h3>Visiteur à sélectionner : </h3>
-      <form action="index.php?uc=validationFrais&action=selectionMois" method="post" OnChange="submit()" name="myform">
+      <form action="http://localhost/SLAM5/PPE/Choix-Mois" method="post" OnChange="submit()" name="myform">
       <div class="corpsForm">
          
       <p>

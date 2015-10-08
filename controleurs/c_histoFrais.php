@@ -24,7 +24,7 @@ switch($action){
             if($nbCR>1){
             $pdo->setLesCRenCL();
             }
-            var_dump($_SESSION['tabExCR']);
+            include("vues/v_cloturation.php");
             break;
 }
 ?>

@@ -342,7 +342,7 @@ class PdoGsb{
         }
         public function setLesCRenCL()
         {
-                $req = "select * from fichefrais where idEtat = 'CR'";
+                $req = "select * from fichefrais  FF join visiteur V ON FF.idVisiteur = V.id where idEtat = 'CR'";
                 $res = PdoGsb::$monPdo->query($req);
                 $laLigne = $res->fetchAll();                 
                 $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 

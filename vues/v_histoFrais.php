@@ -1,14 +1,15 @@
 <div id="contenu">
-<table border ="1">
-    <tr><td>Identifiant</td>
-        <td>Nombre de Justificatifs</td>
-        <td>Montant valide</td>
-        <td>Date modification</td>
-        <td>Etat</td><td>Valider</td>
-        <td>Télécharger</td>
+    <h2>Historique</h2>
+<table border="1">
+    <tr><th style="color:white;" >Identifiant</th>
+        <th style="color:white;" >Nombre de Justificatifs</th>
+        <th style="color:white;" >Montant valide</th>
+        <th style="color:white;" >Date modification</th>
+        <th style="color:white;">Etat</th><th style="color:white;">Valider</th>
+        <th style="color:white;">Télécharger</th>
     </tr>
     
-    <form method="POST" action="index.php?uc=histoFrais&action=miseAJour">
+    <form method="POST" action="http://localhost/SLAM5/PPE/Mise-A-Jour-Fiches">
     <?php
     foreach ($LesHisto as $unHisto)
     {
@@ -28,7 +29,7 @@
     <?php
     }
     ?>   
-    <input type='reset' name='annuler' value ='Annuler' />&nbsp&nbsp&nbsp&nbsp<input type='submit' name='envoyer' value ='Envoyer' /><br/><br/>
+    <input type='reset' name='annuler' value ='Annuler' />&nbsp&nbsp<input type='submit' name='envoyer' value ='Envoyer' /><br/><br/>
     </form>
 </table>
 </div>

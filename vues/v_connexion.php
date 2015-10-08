@@ -2,7 +2,7 @@
       <h2>Identification utilisateur</h2>
 
 
-<form method="POST" action="index.php?uc=connexion&action=valideConnexion">
+<form method="POST" action="http://localhost/SLAM5/PPE/Accueil">
    
     
 			<p>

@@ -220,7 +220,7 @@ taille de caract�res l�g�rement sup�rieure � la normale */
 }
 #contenu a:hover {
    text-decoration:underline;
-   background-color : #D9BB7A;
+   background-color : transparent;
    font-size : 1em;
 }
 

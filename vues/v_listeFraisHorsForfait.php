@@ -30,7 +30,7 @@
 	?>	  
                                           
     </table>
-      <form action="index.php?uc=gererFrais&action=validerCreationFrais" method="post">
+      <form action="http://localhost/SLAM5/PPE/Modification-Frais-Hors-Forfaits" method="post">
       <div class="corpsForm">
          
           <fieldset>

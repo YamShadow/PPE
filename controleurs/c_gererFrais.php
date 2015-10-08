@@ -25,13 +25,8 @@ switch($action){
 	}
 	case 'validerCreationFrais':{
 		$dateFrais = $_REQUEST['dateFrais'];
-                print_r($dateFrais);
 		$libelle = $_REQUEST['libelle'];
-                echo '<br/>';
-                print_r($libelle);
 		$montant = $_REQUEST['montant'];
-                echo '<br/>';
-                print_r($montant);
 		valideInfosFrais($dateFrais,$libelle,$montant);
 		if (nbErreurs() != 0 ){
 			include("vues/v_erreurs.php");
