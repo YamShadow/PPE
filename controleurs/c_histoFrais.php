@@ -26,5 +26,9 @@ switch($action){
             }
             include("vues/v_cloturation.php");
             break;
+        case 'pdfHisto':
+            $visiteur = $_REQUEST['idVisiteur'];
+            $mois = $_REQUEST['mois'];
+            include("vues/v_pdfFacture.php");
 }
 ?>
