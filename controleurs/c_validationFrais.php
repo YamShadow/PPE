@@ -29,7 +29,7 @@ switch($action){
             $idHorsFrais = $_REQUEST['id'];
             $libelle = "SUPPRIMER - ".$_REQUEST['libelle'];
             $pdo->supprimerFraisHorsForfaitComptable($idHorsFrais, $libelle);
-           header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
         case 'modificationFrais' :
             $mois = $_REQUEST['lemois'];
@@ -55,7 +55,7 @@ switch($action){
                 }
                 $pdo->majEtatFicheFrais($idVisiteur,$mois,$etat);
             }
-             header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
         case 'modificationHorsFrais':
             $libelle = $_REQUEST['hfLib1'];
@@ -72,9 +72,9 @@ switch($action){
                     } 
             $cpt = 0;
             foreach($idHorsFrais as $unIdHorsFrais){
+                
             $pdo->majHorsFrais($idVisiteur, $mois, $unIdHorsFrais, $montant[$cpt], $libelle[$cpt], $dateFrais[$cpt]);
             if($_REQUEST['bool'][$cpt] != 1 && $lesSituations[$cpt] == 'V' && $_REQUEST['payer'][$cpt] !=1){
-                echo " test"+$cpt;
                 $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$mois);
                 $montant = $lesInfoFrais['montantValide']+$_REQUEST['hfMont1'][$cpt];
                 $pdo->setMontantFrais($idVisiteur, $mois, $montant);
@@ -104,7 +104,7 @@ switch($action){
                 $mois = $isoleAnnee.''.$isoleMois;        
             }
             $pdo->majMoisHorsFrais($idFrais, $mois);
-            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+             header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
 }
 ?>

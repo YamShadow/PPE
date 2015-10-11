@@ -8,15 +8,18 @@ switch($action){
             include("vues/v_histoFrais.php");
 		break;
         case 'miseAJour':
+            if(isset($_REQUEST['pdf'])){
+                $_SESSION['cpt'] = $_REQUEST['pdf'];
+                header('location: http://localhost/SLAM5/PPE/PDF');
+            }
             $valider = $_REQUEST['valider'];
             foreach ($valider as $unValider)
             {
             $leMois = $pdo->setLesHistoFrais($unValider);
             $etat = 'RB';
-            // $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
-            print_r($leMois);
-            //require("./include/formMail.php");
-            // EnvoieMail();
+            $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
+//            require("./include/formMail.php");
+//            EnvoieMail();
             }
             $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");
@@ -29,8 +32,10 @@ switch($action){
             include("vues/v_cloturation.php");
             break;
         case 'pdfHisto':
-            $visiteur = $_REQUEST['idVisiteur'];
-            $mois = $_REQUEST['mois'];
+            $cptPDF  = $_SESSION['cpt'];
+            $visiteur = $_SESSION['histoIdVisiteur'][$cptPDF];
+            $mois = $_SESSION['histomois'][$cptPDF];
+            $cptPDF  = $_SESSION['cpt'];
             include("vues/v_pdfFacture.php");
             break;
 }

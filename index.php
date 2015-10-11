@@ -1,6 +1,7 @@
 <?php
 require_once("include/fct.inc.php");
 require_once ("include/class.pdogsb.inc.php");
+ini_set('display_errors','off');
 if($_REQUEST['action'] != 'pdfHisto'){
 include("vues/v_entete.php") ; }
 session_start();

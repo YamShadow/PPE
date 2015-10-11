@@ -10,22 +10,25 @@
 </h2> 
       </div>  
         <ul id="menuList">
+            <fieldset>
             <label>
                 <?php if($_SESSION['rang'] == "Comptable"){ ?> Comptable : <br>  <?php } else { ?> Utilisateur :<br> <?php } ?>
-            </label>
+            </label><br/>
             <li class="smenu">
                 <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ; ?>
             </li>
             <li class="smenu">
               <a href="http://localhost/SLAM5/PPE/Deconnexion" title="Se déconnecter">Déconnexion</a>
-           </li><br/>
+           </li><br/></fieldset>
+            <br/>
+           <fieldset><label>Création de Fiche: </label><br/><br/>
            <li class="smenu">
               <a href="http://localhost/SLAM5/PPE/Saisir-Frais" title="Saisie fiche de frais ">Saisie fiche de frais</a>
            </li>
            <li class="smenu">
               <a href="http://localhost/SLAM5/PPE/Consultation" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
-           </li>
- 	   <br><br>
+           </li><br/></fieldset>
+ 	   <br><fieldset><label>Contrôle des Fiches: </label><br/><br/>
            <?php
            if($_SESSION['rang'] == "Comptable")
            { ?>
@@ -47,7 +50,7 @@
            }
            
            ?>
-         </ul>
+         <br/></fieldset></ul>
 
     </div>
     
