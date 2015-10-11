@@ -11,6 +11,6 @@
   <body onload="onLoadDo()">
     <div id="page">
       <div id="entete">
-        <img src="http://www.yamishadow.fr/PPE/images/logo.png" id="logoGSB" alt="Laboratoire Galaxy-Swiss Bourdin" title="Laboratoire Galaxy-Swiss Bourdin" />
-        <h1>Suivi du remboursement des frais</h1>
+          <a href="http://localhost/SLAM5/PPE/Accueil" ><img src="http://www.yamishadow.fr/PPE/images/logo.png" id="logoGSB" alt="Laboratoire Galaxy-Swiss Bourdin" title="Laboratoire Galaxy-Swiss Bourdin" /></a>
+
       </div>

@@ -1,12 +1,13 @@
 ﻿
 <table class="listeLegere">
+        <form name="inputForm" action="http://localhost/SLAM5/PPE/Suppression-Frais-Hors-Forfait" method="POST">
   	   <caption>Descriptif des éléments hors forfait
        </caption>
              <tr>
                 <th class="date">Date</th>
 				<th class="libelle">Libellé</th>  
                 <th class="montant">Montant</th>  
-                <th class="action">&nbsp;</th>              
+                <th class="action">Action</th>              
              </tr>
           
     <?php    
@@ -21,14 +22,15 @@
                 <td> <?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>" 
-				onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
+               <td>
+            <center><input type="image" value="<?php echo $id ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');" onclick="javascript:document.inputForm.submit();" name="idFrais" src="./images/icon-supprimer.jpg" /></center>
+                </td>
              </tr>
 	<?php		 
           
           }
 	?>	  
-                                          
+        </form>                                 
     </table>
       <form action="http://localhost/SLAM5/PPE/Modification-Frais-Hors-Forfaits" method="post">
       <div class="corpsForm">

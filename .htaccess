@@ -2,35 +2,27 @@ options -indexes
 Options +FollowSymLinks
 RewriteEngine on
 
-#Sub-dir e.g: /cmsms
 RewriteBase /SLAM5/PPE
-#
-# 301 Redirect all requests that don't contain a dot or trailing slash to
-# include a trailing slash
-#RewriteCond %{REQUEST_URI} !/$
-#RewriteCond %{REQUEST_URI} !\.
-#RewriteRule ^(.*) %{REQUEST_URI}/ [R=301,L]
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.+)$ erreur404.php?uc=connexion&action=valideConnexion [QSA]
 
 RewriteRule Connexion index.php [L]
-RewriteRule Accueil index.php?uc=connexion&action=valideConnexion [L]
+RewriteRule Valide index.php?uc=connexion&action=valideConnexion [L]
+RewriteRule Accueil index.php?uc=accueil [L]
 RewriteRule Deconnexion index.php?uc=connexion&action=deconnexion [L]
 RewriteRule Valider-Creation-Frais index.php?uc=gererFrais&action=validerCreationFrais [L]
 RewriteRule Saisir-Frais index.php?uc=gererFrais&action=saisirFrais [L]
-RewriteRule Consultation index.php?uc=etatFrais&action=selectionnerMois
-RewriteRule Mes-Fiches-Frais index.php?uc=etatFrais&action=voirEtatFrais
-RewriteRule Modification-Frais-Forfait index.php?uc=gererFrais&action=validerMajFraisForfait
-RewriteRule Modification-Frais-Hors-Forfait index.php?uc=gererFrais&action=validerCreationFrais
-# RewriteRule Suppression-Frais-Hors-Forfait index.php?uc=gererFrais&action=supprimerFrais
-RewriteRule Choix-Visiteur index.php?uc=validationFrais&action=selectionVisiteur
-RewriteRule Choix-Mois index.php?uc=validationFrais&action=selectionMois
-RewriteRule Fiche-Comptable index.php?uc=validationFrais&action=affichage
-RewriteRule Modification-Frais-Comptable index.php?uc=validationFrais&action=modificationFrais
-RewriteRule Modification-Hors-Frais-Comptable index.php?uc=validationFrais&action=selectionVisiteur
-RewriteRule Historique index.php?uc=histoFrais&action=histoFrais
-RewriteRule Cloturer-Fiches index.php?uc=histoFrais&action=CRenCL
-RewriteRule Mise-A-Jour-Fiches index.php?uc=histoFrais&action=miseAJour
+RewriteRule Consultation index.php?uc=etatFrais&action=selectionnerMois [L]
+RewriteRule Mes-Fiches-Frais index.php?uc=etatFrais&action=voirEtatFrais [L]
+RewriteRule Modification-Frais-Forfait index.php?uc=gererFrais&action=validerMajFraisForfait [L]
+RewriteRule Modification-Frais-Hors-Forfait index.php?uc=gererFrais&action=validerCreationFrais [L]
+RewriteRule Suppression-Frais-Hors-Forfait index.php?uc=gererFrais&action=supprimerFrais [L]
+RewriteRule Choix-Visiteur index.php?uc=validationFrais&action=selectionVisiteur [L]
+RewriteRule Choix-Mois index.php?uc=validationFrais&action=selectionMois [L]
+RewriteRule Fiche-Comptable index.php?uc=validationFrais&action=affichage [L]
+RewriteRule Modification-Frais-Comptable index.php?uc=validationFrais&action=modificationFrais [L]
+RewriteRule Modification-Hors-Frais-Comptable index.php?uc=validationFrais&action=selectionVisiteur [L]
+RewriteRule Historique index.php?uc=histoFrais&action=histoFrais [L]
+RewriteRule Cloturer-Fiches index.php?uc=histoFrais&action=CRenCL [L]
+RewriteRule Mise-A-Jour-Fiches index.php?uc=histoFrais&action=miseAJour [L]
+RewriteRule Suppression-Comptable index.php?uc=validationFrais&action=suppression [L]
 
-#http://localhost/SLAM5/PPE/Mise-A-Jour-Fiches
+#http://localhost/SLAM5/PPE/Choix-Visiteur

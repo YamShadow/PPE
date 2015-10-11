@@ -1,7 +1,6 @@
 /* Styles des divisions principales de la page */
 body{
   background-color: #77AADD;
-	background-image: url(http://yamishadow.fr/test/images/background.jpg);
 	background-repeat: fixed;
   margin:0% 0%;
   padding : 0.6em;
@@ -10,7 +9,7 @@ body{
 }
 #page {
   background-color:white;
-  width : 75%;
+  width : 85%;
   margin : auto ;
   border : 0.2em solid black;
   padding : 0.1em;
@@ -18,7 +17,7 @@ body{
   min-height: 500px;
 }
 #entete{
-  background-color:rgb(29, 41, 65);
+  background-image: url(http://yamishadow.fr/PPE/images/banniere.png);
 	color : #66A3D3;
 	border: solid 0.1em #66A3D3;
 	height: 160px;
@@ -299,10 +298,24 @@ table.listeLegere th.libelle{
 	text-decoration: none;
 	border : 1px solid #6988BE;
 	padding-left: 25px;
+        padding-top: 10px;
 	background-color: #E9F1FE;
-  height : 28px;
+        height : 28px;
 }
 
 #contenu img {
-  height : 28px;
+  height : 30px;
+}
+
+#contenu fieldset img {
+  height : 100px;
+}
+
+fieldset {
+ 		display:block;
+ 		width:98%;
+		border: 2px dotted #66A3D3;
+		padding:2px;
+ 		overflow:hidden;  
+                padding-left: 10px;
 }

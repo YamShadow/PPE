@@ -14,7 +14,10 @@ switch($action){
             {
             $leMois = $pdo->setLesHistoFrais($unValider);
             $etat = 'RB';
-            $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
+            // $pdo->majEtatFicheFrais($unValider,$leMois['mois'],$etat);
+            print_r($leMois);
+            //require("./include/formMail.php");
+            // EnvoieMail();
             }
             $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");

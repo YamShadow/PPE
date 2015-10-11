@@ -142,7 +142,7 @@ class PdoGsb{
 		$lesCles = array_keys($lesFrais);
 		foreach($lesCles as $unIdFrais){
 			$qte = $lesFrais[$unIdFrais];
-			$req = "update lignefraisforfait set lignefraisforfait.quantite = $qte,
+			$req = "update lignefraisforfait set lignefraisforfait.quantite = $qte
 			where lignefraisforfait.idvisiteur = '$idVisiteur' and lignefraisforfait.mois = '$mois'
 			and lignefraisforfait.idfraisforfait = '$unIdFrais'";
 			PdoGsb::$monPdo->exec($req);
@@ -342,13 +342,12 @@ class PdoGsb{
         }
         public function setLesCRenCL()
         {
-                $req = "select * from fichefrais  FF join visiteur V ON FF.idVisiteur = V.id where idEtat = 'CR'";
+                $req = "select * from fichefrais FF join visiteur V ON FF.idVisiteur = V.id where idEtat = 'CR'";
                 $res = PdoGsb::$monPdo->query($req);
                 $laLigne = $res->fetchAll();                 
-                $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() 
-                where idEtat = 'CR'";
+                $req2 = "update ficheFrais set idEtat = 'CL', dateModif = now() where idEtat = 'CR'";
                 PdoGsb::$monPdo->exec($req2);
-                $_SESSION['tabExCR'] = $laLigne;      
+                $_SESSION['tabExCR'] = $laLigne; 
         }
         public function getLesMontantFrais(){
             

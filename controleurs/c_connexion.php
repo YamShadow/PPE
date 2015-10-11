@@ -12,6 +12,7 @@ switch($action){
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
 		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
+
 		if(!is_array( $visiteur)){
 			ajouterErreur("Login ou mot de passe incorrect");
 			include("vues/v_erreurs.php");
@@ -24,6 +25,7 @@ switch($action){
                         $rang = $visiteur['rang'];
 			connecter($id,$nom,$prenom, $rang);
 			include("vues/v_sommaire.php");
+                        include("vues/v_accueil.php");
 		}
 		break;
 	}

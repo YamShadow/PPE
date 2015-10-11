@@ -23,13 +23,13 @@ switch($action){
             $lesInfoHorsFrais = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois); 
             include("vues/v_ficheMois.php");
             }
-            else{ header('location: index.php?uc=validationFrais&action=selectionVisiteur'); }     
+            else{ header('location: http://localhost/SLAM5/PPE/Choix-Visiteur'); }     
             break;
         case 'suppression':
             $idHorsFrais = $_REQUEST['id'];
             $libelle = "SUPPRIMER - ".$_REQUEST['libelle'];
             $pdo->supprimerFraisHorsForfaitComptable($idHorsFrais, $libelle);
-           header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+           header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
         case 'modificationFrais' :
             $mois = $_REQUEST['lemois'];
@@ -55,7 +55,7 @@ switch($action){
                 }
                 $pdo->majEtatFicheFrais($idVisiteur,$mois,$etat);
             }
-             header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+             header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
         case 'modificationHorsFrais':
             $libelle = $_REQUEST['hfLib1'];
@@ -85,7 +85,7 @@ switch($action){
            
             $nbJustificatifs = $_REQUEST['hcMontant'];
             $pdo->majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs);
-            header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
             
         case 'reportMois':
@@ -104,7 +104,7 @@ switch($action){
                 $mois = $isoleAnnee.''.$isoleMois;        
             }
             $pdo->majMoisHorsFrais($idFrais, $mois);
-            header('location: index.php?uc=validationFrais&action=selectionVisiteur');
+            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
             break;
 }
 ?>
