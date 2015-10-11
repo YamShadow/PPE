@@ -488,15 +488,18 @@ class PdoGsb{
             $w = array(65, 35, 35, 35);
             $header = array('Libelle', 'Montant unitaire', 'Quantite', 'Montant total');
             for($i=0; $i<count($header); $i++){
-                $pdf->Cell($w[$i], 7,$header[$i], 1,0,'C');
+                $pdf->SetFillColor(102, 163, 211);
+                $pdf->SetTextColor(255,255,255);
+                $pdf->Cell($w[$i], 7,$header[$i], 1,0,'C' , true);
             }
+            $pdf->SetTextColor(0,0,0);
             $pdf->Ln();
             $fill= false;
             $montantFrais = 0;
             foreach($tabForfaitaires as $col)
             {
                 $pdf->Cell($w[0],6,utf8_decode($col['0']),'LR', 0, 'L', $fill);
-                $pdf->Cell($w[1],6,utf8_decode($col['1']." euro"),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[1],6,utf8_decode($col['1']." euros"),'LR', 0, 'L', $fill);
                 $pdf->Cell($w[2],6,utf8_decode($col['2']),'LR', 0, 'L', $fill);
                 $pdf->Cell($w[3],6,utf8_decode($col['2']*$col['1']." euro"),'LR', 0, 'L', $fill);
                 $montantFrais += $col['2']*$col['1'];
@@ -506,7 +509,7 @@ class PdoGsb{
             $pdf->Cell(array_sum($w),5,'','T');
             $pdf->Ln();
             $pdf->SetFont('Arial','B',10);
-            $pdf->Cell(30,10,"Montant des frais forfait : ".$montantFrais." euro",0,0,'L');
+            $pdf->Cell(30,10,"Montant des frais forfait : ".$montantFrais." euros",0,0,'L');
             $pdf->Ln();
             $pdf->SetFont('Arial','',10);
             $pdf->Cell(30,5,"Frais hors forfait :",0,0,'L');
@@ -514,14 +517,16 @@ class PdoGsb{
             $w = array(65, 35, 35);
             $header2 = array('Libelle', 'Montant', 'Date');
             for($i=0; $i<count($header2); $i++){
-                $pdf->Cell($w[$i], 7,$header2[$i], 1,0,'C');
+                $pdf->SetTextColor(255,255,255);
+                $pdf->Cell($w[$i], 7,$header2[$i], 1,0,'C', true);
             }
+            $pdf->SetTextColor(0,0,0);
             $pdf->Ln();
             $montantHorsFrais = 0;
             foreach($tabHorsFrais as $col2)
             {
                 $pdf->Cell($w[0],6,utf8_decode($col2['0']),'LR', 0, 'L', $fill);
-                $pdf->Cell($w[1],6,utf8_decode($col2['1']." euro"),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[1],6,utf8_decode($col2['1']." euros"),'LR', 0, 'L', $fill);
                 $pdf->Cell($w[1],6,utf8_decode($col2['2']),'LR', 0, 'L', $fill);
                 if($col2['supprimer'] != 1){
                 $montantHorsFrais += $col2['1']; }
@@ -530,33 +535,33 @@ class PdoGsb{
             $pdf->Cell(array_sum($w),5,'','T');
             $pdf->Ln();
             $pdf->SetFont('Arial','B',10);
-            $pdf->Cell(30,10,"Montant des frais hors forfait : ".$montantHorsFrais." euro",0,0,'L');
+            $pdf->Cell(30,10,"Montant des frais hors forfait : ".$montantHorsFrais." euros",0,0,'L');
             $pdf->Ln();
 
-            $pdf->SetFont('Arial','',7);
-            $pdf->SetXY(0,227);
-            $pdf->Cell(0,30,utf8_decode("Comment régler ?"));
-            $pdf->SetXY(0,230);
-            $pdf->Cell(0,30,utf8_decode("Adressez votre chèque"));
-            $pdf->SetXY(0,233);
-            $pdf->Cell(0,30,utf8_decode("ou votre mandat à"));
-            $pdf->SetXY(0,236);
-            $pdf->Cell(0,30,utf8_decode("l'adresse de la boite"));
-            $pdf->SetXY(0,239);
-            $pdf->Cell(0,30,utf8_decode("postale ci dessous."));
-            $pdf->SetDrawColor(0,0,0);
-            $pdf->Rect(1, 260, 25, 20,'D');
-
-            $pdf->SetFont('times','B',5);
-
-            $pdf->SetXY(1,250);
-            $pdf->Cell(0,30,utf8_decode("LABORATOIRE GSB"));
-            $pdf->SetXY(1,252);
-            $pdf->Cell(0,30,utf8_decode("BTTF - Centre de traitement"));
-            $pdf->SetXY(1,254);
-            $pdf->Cell(0,30,utf8_decode("TSA 270"));
-            $pdf->SetXY(1,258);
-            $pdf->Cell(0,30,utf8_decode("93270 SEVRAN CEDEX"));
+//            $pdf->SetFont('Arial','',7);
+//            $pdf->SetXY(0,227);
+//            $pdf->Cell(0,30,utf8_decode("Comment régler ?"));
+//            $pdf->SetXY(0,230);
+//            $pdf->Cell(0,30,utf8_decode("Adressez votre chèque"));
+//            $pdf->SetXY(0,233);
+//            $pdf->Cell(0,30,utf8_decode("ou votre mandat à"));
+//            $pdf->SetXY(0,236);
+//            $pdf->Cell(0,30,utf8_decode("l'adresse de la boite"));
+//            $pdf->SetXY(0,239);
+//            $pdf->Cell(0,30,utf8_decode("postale ci dessous."));
+//            $pdf->SetDrawColor(0,0,0);
+//            $pdf->Rect(1, 260, 25, 20,'D');
+//
+//            $pdf->SetFont('times','B',5);
+//
+//            $pdf->SetXY(1,250);
+//            $pdf->Cell(0,30,utf8_decode("LABORATOIRE GSB"));
+//            $pdf->SetXY(1,252);
+//            $pdf->Cell(0,30,utf8_decode("BTTF - Centre de traitement"));
+//            $pdf->SetXY(1,254);
+//            $pdf->Cell(0,30,utf8_decode("TSA 270"));
+//            $pdf->SetXY(1,258);
+//            $pdf->Cell(0,30,utf8_decode("93270 SEVRAN CEDEX"));
 
             $pdf->Rect(27, 235, 190, 80,'');
             $pdf->Rect(27, 280, 190, 80,'');
@@ -585,7 +590,7 @@ class PdoGsb{
             $pdf->Cell($nb2,5,utf8_decode($prenom),0,0,'L');
 
             $pdf->SetXY(80,263);
-            $pdf->Cell(0,30,utf8_decode("Ne joignez aucun autre document à votre règlement"));
+            $pdf->Cell(0,30,utf8_decode("Talon de validation des remboursements"));
 
             $montant = $montantFrais+$montantHorsFrais;
 

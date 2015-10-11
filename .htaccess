@@ -6,7 +6,7 @@ RewriteBase /SLAM5/PPE
 
 RewriteRule Connexion index.php [L]
 RewriteRule Valide index.php?uc=connexion&action=valideConnexion [L]
-RewriteRule Accueil index.php?uc=accueil [L]
+RewriteRule Accueil index.php?uc=accueil&action= [L]
 RewriteRule Deconnexion index.php?uc=connexion&action=deconnexion [L]
 RewriteRule Valider-Creation-Frais index.php?uc=gererFrais&action=validerCreationFrais [L]
 RewriteRule Saisir-Frais index.php?uc=gererFrais&action=saisirFrais [L]

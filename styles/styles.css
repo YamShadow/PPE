@@ -319,3 +319,88 @@ fieldset {
  		overflow:hidden;  
                 padding-left: 10px;
 }
+
+#contenu .saisir a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/saisirHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .saisir a:hover, #contenu .saisir a:focus, #contenu .saisir a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/saisirHover.png) right top no-repeat ;
+    width: 187px;
+	  height: 100px;
+  overflow: hidden;
+}
+#contenu .consultation a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/fichesHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .consultation a:hover, #contenu .consultation a:focus, #contenu .consultation a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/fichesHover.png) right top no-repeat ;
+    width: 187px;
+    height: 100px;
+    overflow: hidden;
+}
+#contenu .validation a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/validationHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .validation a:hover, #contenu .validation a:focus, #contenu .validation a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/validationHover.png) right top no-repeat ;
+    width: 187px;
+    height: 100px;
+    overflow: hidden;
+}
+#contenu .historique a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/historiqueHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .historique a:hover, #contenu .historique a:focus, #contenu .historique a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/historiqueHover.png) right top no-repeat ;
+    width: 187px;
+    height: 100px;
+    overflow: hidden;
+}
+#contenu .deconnexion a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/deconnexionHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .deconnexion a:hover, #contenu .deconnexion a:focus, #contenu .deconnexion a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/deconnexionHover.png) right top no-repeat ;
+    width: 187px;
+    height: 100px;
+    overflow: hidden;
+}
+#contenu .cloturation a {
+  display: inline-block ;
+  background: url(http://www.yamishadow.fr/PPE/images/cloturationHover.png) left top no-repeat ;
+  padding: 4px 0 ;
+  width: 187px;
+  height: 100px;
+  overflow: hidden;
+}	
+#contenu .cloturation a:hover, #contenu .deconnexion a:focus, #contenu .deconnexion a:active {
+  background: url(http://www.yamishadow.fr/PPE/images/cloturationHover.png) right top no-repeat ;
+    width: 187px;
+    height: 100px;
+    overflow: hidden;
+}
