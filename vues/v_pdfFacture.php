@@ -1,3 +1,3 @@
 <?php
-creationFacturePDF($visiteur,$mois);
+$pdo->creationFacturePDF($visiteur,$mois);
 ?>

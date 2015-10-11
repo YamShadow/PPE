@@ -1,7 +1,8 @@
 <div id="contenu">
     <h2>Historique</h2>
 <table border="1">
-    <tr><th style="color:white;" >Identifiant</th>
+    <tr><th style="color:white;" >Nom</th>
+        <th style="color:white;" >P</th>
         <th style="color:white;" >Nombre de Justificatifs</th>
         <th style="color:white;" >Montant valide</th>
         <th style="color:white;" >Date modification</th>
@@ -17,7 +18,8 @@
             $dateModif =  dateAnglaisVersFrancais($dateModif);
             
         ?>
-    <tr><td><?php echo $unHisto['idVisiteur']; ?></td>
+    <tr><td><?php echo $unHisto['nom']; ?></td>
+        <td><?php echo $unHisto['prenom']; ?></td>
         <td><?php echo $unHisto['nbJustificatifs']; ?></td>
         <td><?php echo $unHisto['montantValide']; ?></td>
         <td><?php echo $dateModif; ?></td>

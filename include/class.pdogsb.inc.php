@@ -321,7 +321,7 @@ class PdoGsb{
         }
         public function getLesHistoFrais()
         {
-                $req = "select * from fichefrais where idEtat = 'VA' or idEtat = 'RB' order by idEtat DESC , dateModif DESC ";
+                $req = "select * from fichefrais FF join visiteur v on v.id = FF.idVisiteur where idEtat = 'VA' or idEtat = 'RB' order by idEtat DESC , dateModif DESC ";
 		$res = PdoGsb::$monPdo->query($req);
 		$laLigne = $res->fetchAll();
 		return $laLigne;
@@ -392,6 +392,7 @@ class PdoGsb{
            }
         function creationFacturePDF($visiteur,$mois)
         {
+            ob_end_clean();
             $req = "select * from visiteur where id ='".$visiteur."'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
@@ -402,27 +403,27 @@ class PdoGsb{
             $cp = $laLigne['cp'];
             $ville = $laLigne['ville'];
             
-            $req2 = "select dateModif from fichefrais where idVisiteur ='".$visiteur."' and mois =".$mois."";
-            $res2 = PdoGsb::$monPdo->query($req);
+            $req2 = "select dateModif from fichefrais where idVisiteur ='".$visiteur."' and mois ='".$mois."'";
+            $res2 = PdoGsb::$monPdo->query($req2);
             $laLigne2 = $res2->fetch();
             
-            $dateModif = dateAnglaisVersFrancais($laLigne2['dateModif']);
+            
+            $dateModif = $laLigne2[0];
             
             $numAnnee =substr( $mois,0,4);
             $numMois =substr( $mois,4,2);
             
             $moisEtAnnee = ''.$numMois.'/'.$numAnnee.'';
             
-            $req3 = "select fraisforfait.libelle, fraisforfait.montant, lignefraisforfait.quantite from fraisforfait join lignefraisforfait on idFraisForfait = id where idVisiteur ='".$visiteur."' and mois =".$mois."";
+            $req3 = "select fraisforfait.libelle, fraisforfait.montant, lignefraisforfait.quantite from fraisforfait join lignefraisforfait on idFraisForfait = id where idVisiteur ='".$visiteur."' and mois ='".$mois."'";
             $res3 = PdoGsb::$monPdo->query($req3);
-            $tabForfaitaires = $res3->fetch();
-            //foreach
-            $req4 = "select libelle, montant, date from lignefraishorsforfait where idVisiteur ='".$visiteur."' and mois =".$mois."";
+            $tabForfaitaires = $res3->fetchAll();
+            $req4 = "select libelle, montant, date, supprimer from lignefraishorsforfait where idVisiteur ='".$visiteur."' and mois =".$mois."";
             $res4 = PdoGsb::$monPdo->query($req4);
-            $tabHorsFrais = $res4->fetch();
+            $tabHorsFrais = $res4->fetchAll();
             //foreach date anglais
             
-            require(dirname(__FILE__) . '/../fpdf/fpdf.php');
+            require('C:\wamp\www\SLAM5\PPE\fpdf\fpdf.php');
 
             $pdf=new FPDF();
 
@@ -433,7 +434,7 @@ class PdoGsb{
             $pdf->SetFont('times','B',10);
 
             $pdf->SetXY(10, 5);
-            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo.png',5,5,30,30));
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('./images/fpdf/logo.jpg',5,5,30,30));
 
             $pdf->SetXY(37,10);
             $pdf->Cell(30,5,"Laboratoire Galaxy Swiss Bourdin",0,0,'L');
@@ -445,7 +446,7 @@ class PdoGsb{
             $pdf->Cell(30,5,"75008 Paris",0,0,'L');
             $pdf->Ln();
 
-            $nb = $pdf->GetStringWidth("".$dateModif."") + $pdf->GetStringWidth("Date d'édition : ");
+              $nb = $pdf->GetStringWidth("".$dateModif."") + $pdf->GetStringWidth("Date d'édition : ");
             $pdf->SetXY(150,20);
             $pdf->Cell($nb,5,utf8_decode("Date d'édition : ".$dateModif.""),0,0,'L');
             $pdf->Ln();
@@ -453,41 +454,83 @@ class PdoGsb{
             $pdf->SetFont('Arial','',8);
 
             $pdf->SetDrawColor(18,62,106);
-            $pdf->Rect(110, 50, 70, 35,'D');
+            $pdf->Rect(120, 40, 70, 25,'D');
 
             $nb1 = $pdf->GetStringWidth("".$nom."") + 2;
-            $pdf->SetXY(115,55);
+            $pdf->SetXY(125,45);
             $pdf->Cell($nb1,5,utf8_decode($nom),0,0,'L');
 
             $nb2 = $pdf->GetStringWidth("".$prenom."") + 2;
-            $pdf->SetXY(115+$nb1,55);
+            $pdf->SetXY(125+$nb1,45);
             $pdf->Cell($nb2,5,utf8_decode($prenom),0,0,'L');
 
 
             $nb3 = $pdf->GetStringWidth("".$adresse."") + 2;
-            $pdf->SetXY(115,60);
+            $pdf->SetXY(125,50);
             $pdf->Cell($nb3,5,utf8_decode($adresse),0,0,'L');
 
             $nb3 = $pdf->GetStringWidth("".$cp." ".$ville."") + 2;
-            $pdf->SetXY(115,65);
+            $pdf->SetXY(125,55);
             $pdf->Cell($nb3,5,utf8_decode("".$cp." ".$ville.""),0,0,'L');
 
             $pdf->SetFont('Arial','B',10);
 
-            $pdf->SetXY(75,100);
+            $pdf->SetXY(75,80);
             $pdf->Cell(5,5,utf8_decode("Facture des frais engagés du ".$moisEtAnnee.""),0,0,'L');
+            $pdf->Ln();
+            $pdf->Ln();
 
 	//Tableau Forfaitaires et Hors forfaits
-            foreach($tabForfaitaires as $col)
-            {
-                $pdf->Cell(30,6,$col,1,0,'C');
+            //Tableau forfaitaires
+            $pdf->SetFont('Arial','',10);
+            $pdf->Cell(30,5,"Frais forfait :",0,0,'L');
+            $pdf->Ln();
+            $w = array(65, 35, 35, 35);
+            $header = array('Libelle', 'Montant unitaire', 'Quantite', 'Montant total');
+            for($i=0; $i<count($header); $i++){
+                $pdf->Cell($w[$i], 7,$header[$i], 1,0,'C');
             }
             $pdf->Ln();
-            
+            $fill= false;
+            $montantFrais = 0;
+            foreach($tabForfaitaires as $col)
+            {
+                $pdf->Cell($w[0],6,utf8_decode($col['0']),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[1],6,utf8_decode($col['1']." euro"),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[2],6,utf8_decode($col['2']),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[3],6,utf8_decode($col['2']*$col['1']." euro"),'LR', 0, 'L', $fill);
+                $montantFrais += $col['2']*$col['1'];
+                
+                $pdf->Ln();
+            }
+            $pdf->Cell(array_sum($w),5,'','T');
+            $pdf->Ln();
+            $pdf->SetFont('Arial','B',10);
+            $pdf->Cell(30,10,"Montant des frais forfait : ".$montantFrais." euro",0,0,'L');
+            $pdf->Ln();
+            $pdf->SetFont('Arial','',10);
+            $pdf->Cell(30,5,"Frais hors forfait :",0,0,'L');
+            $pdf->Ln();
+            $w = array(65, 35, 35);
+            $header2 = array('Libelle', 'Montant', 'Date');
+            for($i=0; $i<count($header2); $i++){
+                $pdf->Cell($w[$i], 7,$header2[$i], 1,0,'C');
+            }
+            $pdf->Ln();
+            $montantHorsFrais = 0;
             foreach($tabHorsFrais as $col2)
             {
-                $pdf->Cell(30,6,$col2,1,0,'C');
+                $pdf->Cell($w[0],6,utf8_decode($col2['0']),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[1],6,utf8_decode($col2['1']." euro"),'LR', 0, 'L', $fill);
+                $pdf->Cell($w[1],6,utf8_decode($col2['2']),'LR', 0, 'L', $fill);
+                if($col2['supprimer'] != 1){
+                $montantHorsFrais += $col2['1']; }
+                $pdf->Ln();
             }
+            $pdf->Cell(array_sum($w),5,'','T');
+            $pdf->Ln();
+            $pdf->SetFont('Arial','B',10);
+            $pdf->Cell(30,10,"Montant des frais hors forfait : ".$montantHorsFrais." euro",0,0,'L');
             $pdf->Ln();
 
             $pdf->SetFont('Arial','',7);
@@ -520,7 +563,7 @@ class PdoGsb{
             $pdf->Rect(27, 235, 190, 45,'');
 
             $pdf->SetXY(10, 5);
-            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo.png',30,237,20,20));
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('./images/fpdf/logo.jpg',30,238,20,20));
 
 
             $pdf->SetFont('times','',8);
@@ -544,7 +587,7 @@ class PdoGsb{
             $pdf->SetXY(80,263);
             $pdf->Cell(0,30,utf8_decode("Ne joignez aucun autre document à votre règlement"));
 
-            $montant = '312.12';
+            $montant = $montantFrais+$montantHorsFrais;
 
             $pdf->SetFont('times','B',8);
 
@@ -553,7 +596,7 @@ class PdoGsb{
             $pdf->Cell($nb3,5,utf8_decode("".$montant.""),0,0,'L');
 
             $pdf->SetXY(10, 5);
-            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo_cheque.png',180,260,10,10));
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/fpdf/logo_cheque.jpg',180,260,10,10));
 
             $pdf->SetFont('times','B',12);
 
@@ -563,7 +606,7 @@ class PdoGsb{
             $pdf->Cell(0,5,utf8_decode("874694000035     552159540084774687946212684521   ".$m.""),0,0,'L');
 
             $pdf->SetXY(0,180);
-            $pdf->Cell(0,100,'',0,0,'L',$pdf->Image('images/ciseau.png',30,223,180,15));
+            $pdf->Cell(0,100,'',0,0,'L',$pdf->Image('images/fpdf/ciseau.jpg',30,223,180,15));
 
             $pdf->Output();        
         }

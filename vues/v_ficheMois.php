@@ -61,7 +61,7 @@
 			<tr align="center"><td width="80" ><input type="text" size="10" name="hfDate1[]"  value="<?php echo $unInfoHorsFrais['date'] ?>"/></td>
                                 <td width="280"><input type="text" size="37" name="hfLib1[]" value="<?php echo $unInfoHorsFrais['libelle'] ?>"/></td> 
 				<td width="50"> <input type="text" size="8" name="hfMont1[]" value="<?php echo $unInfoHorsFrais['montant'] ?>"/></td>
-				<?php $montantHF += $unInfoHorsFrais['montant']; ?>
+                                <?php if($unInfoHorsFrais['supprimer'] != 1) { $montantHF += $unInfoHorsFrais['montant']; } ?>
                                 <td width="100"> 
                                     <select size="3" name="hfSitu1[]">
 						<option value="E" <?php if( $unInfoHorsFrais['payer'] != 1) { ?> selected <?php } ?>>Non payer</option>

@@ -1,14 +1,13 @@
 <?php
-include("vues/v_sommaire.php");
-
+if($_REQUEST['action'] != 'pdfHisto'){
+include("vues/v_sommaire.php"); }
 $action = $_REQUEST['action'];
 switch($action){      
-        case 'histoFrais':
+            case 'histoFrais':
             $LesHisto = $pdo->getLesHistoFrais();
             include("vues/v_histoFrais.php");
 		break;
         case 'miseAJour':
-            
             $valider = $_REQUEST['valider'];
             foreach ($valider as $unValider)
             {
@@ -33,5 +32,6 @@ switch($action){
             $visiteur = $_REQUEST['idVisiteur'];
             $mois = $_REQUEST['mois'];
             include("vues/v_pdfFacture.php");
+            break;
 }
 ?>
