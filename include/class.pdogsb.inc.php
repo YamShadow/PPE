@@ -390,5 +390,182 @@ class PdoGsb{
                         where lignefraishorsforfait.id = $idFrais";
                 PdoGsb::$monPdo->exec($req);
            }
+        function creationFacturePDF($visiteur,$mois)
+        {
+            $req = "select * from visiteur where id ='".$visiteur."'";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+            
+            $nom = $laLigne['nom'];
+            $prenom = $laLigne['prenom'];
+            $adresse = $laLigne['adresse'];
+            $cp = $laLigne['cp'];
+            $ville = $laLigne['ville'];
+            
+            $req2 = "select dateModif from fichefrais where idVisiteur ='".$visiteur."' and mois =".$mois."";
+            $res2 = PdoGsb::$monPdo->query($req);
+            $laLigne2 = $res2->fetch();
+            
+            $dateModif = dateAnglaisVersFrancais($laLigne2['dateModif']);
+            
+            $numAnnee =substr( $mois,0,4);
+            $numMois =substr( $mois,4,2);
+            
+            $moisEtAnnee = ''.$numMois.'/'.$numAnnee.'';
+            
+            $req3 = "select fraisforfait.libelle, fraisforfait.montant, lignefraisforfait.quantite from fraisforfait join lignefraisforfait on idFraisForfait = id where idVisiteur ='".$visiteur."' and mois =".$mois."";
+            $res3 = PdoGsb::$monPdo->query($req3);
+            $tabForfaitaires = $res3->fetch();
+            //foreach
+            $req4 = "select libelle, montant, date from lignefraishorsforfait where idVisiteur ='".$visiteur."' and mois =".$mois."";
+            $res4 = PdoGsb::$monPdo->query($req4);
+            $tabHorsFrais = $res4->fetch();
+            //foreach date anglais
+            
+            require(dirname(__FILE__) . '/../fpdf/fpdf.php');
+
+            $pdf=new FPDF();
+
+            $pdf->AddPage();
+
+            $pdf->SetAutoPageBreak(true, 0.00);
+
+            $pdf->SetFont('times','B',10);
+
+            $pdf->SetXY(10, 5);
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo.png',5,5,30,30));
+
+            $pdf->SetXY(37,10);
+            $pdf->Cell(30,5,"Laboratoire Galaxy Swiss Bourdin",0,0,'L');
+            $pdf->Ln();
+            $pdf->SetXY(37,15);
+            $pdf->Cell(30,5,utf8_decode("176 rue Galliéni"),0,0,'L');
+            $pdf->Ln();
+            $pdf->SetXY(37,20);
+            $pdf->Cell(30,5,"75008 Paris",0,0,'L');
+            $pdf->Ln();
+
+            $nb = $pdf->GetStringWidth("".$dateModif."") + $pdf->GetStringWidth("Date d'édition : ");
+            $pdf->SetXY(150,20);
+            $pdf->Cell($nb,5,utf8_decode("Date d'édition : ".$dateModif.""),0,0,'L');
+            $pdf->Ln();
+
+            $pdf->SetFont('Arial','',8);
+
+            $pdf->SetDrawColor(18,62,106);
+            $pdf->Rect(110, 50, 70, 35,'D');
+
+            $nb1 = $pdf->GetStringWidth("".$nom."") + 2;
+            $pdf->SetXY(115,55);
+            $pdf->Cell($nb1,5,utf8_decode($nom),0,0,'L');
+
+            $nb2 = $pdf->GetStringWidth("".$prenom."") + 2;
+            $pdf->SetXY(115+$nb1,55);
+            $pdf->Cell($nb2,5,utf8_decode($prenom),0,0,'L');
+
+
+            $nb3 = $pdf->GetStringWidth("".$adresse."") + 2;
+            $pdf->SetXY(115,60);
+            $pdf->Cell($nb3,5,utf8_decode($adresse),0,0,'L');
+
+            $nb3 = $pdf->GetStringWidth("".$cp." ".$ville."") + 2;
+            $pdf->SetXY(115,65);
+            $pdf->Cell($nb3,5,utf8_decode("".$cp." ".$ville.""),0,0,'L');
+
+            $pdf->SetFont('Arial','B',10);
+
+            $pdf->SetXY(75,100);
+            $pdf->Cell(5,5,utf8_decode("Facture des frais engagés du ".$moisEtAnnee.""),0,0,'L');
+
+	//Tableau Forfaitaires et Hors forfaits
+            foreach($tabForfaitaires as $col)
+            {
+                $pdf->Cell(30,6,$col,1,0,'C');
+            }
+            $pdf->Ln();
+            
+            foreach($tabHorsFrais as $col2)
+            {
+                $pdf->Cell(30,6,$col2,1,0,'C');
+            }
+            $pdf->Ln();
+
+            $pdf->SetFont('Arial','',7);
+            $pdf->SetXY(0,227);
+            $pdf->Cell(0,30,utf8_decode("Comment régler ?"));
+            $pdf->SetXY(0,230);
+            $pdf->Cell(0,30,utf8_decode("Adressez votre chèque"));
+            $pdf->SetXY(0,233);
+            $pdf->Cell(0,30,utf8_decode("ou votre mandat à"));
+            $pdf->SetXY(0,236);
+            $pdf->Cell(0,30,utf8_decode("l'adresse de la boite"));
+            $pdf->SetXY(0,239);
+            $pdf->Cell(0,30,utf8_decode("postale ci dessous."));
+            $pdf->SetDrawColor(0,0,0);
+            $pdf->Rect(1, 260, 25, 20,'D');
+
+            $pdf->SetFont('times','B',5);
+
+            $pdf->SetXY(1,250);
+            $pdf->Cell(0,30,utf8_decode("LABORATOIRE GSB"));
+            $pdf->SetXY(1,252);
+            $pdf->Cell(0,30,utf8_decode("BTTF - Centre de traitement"));
+            $pdf->SetXY(1,254);
+            $pdf->Cell(0,30,utf8_decode("TSA 270"));
+            $pdf->SetXY(1,258);
+            $pdf->Cell(0,30,utf8_decode("93270 SEVRAN CEDEX"));
+
+            $pdf->Rect(27, 235, 190, 80,'');
+            $pdf->Rect(27, 280, 190, 80,'');
+            $pdf->Rect(27, 235, 190, 45,'');
+
+            $pdf->SetXY(10, 5);
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo.png',30,237,20,20));
+
+
+            $pdf->SetFont('times','',8);
+            $pdf->SetXY(60,225);
+            $pdf->Cell(0,30,utf8_decode("LABORATOIRE GSB"));
+            $pdf->SetXY(60,228);
+            $pdf->Cell(0,30,utf8_decode("BTTF - Centre de traitement"));
+            $pdf->SetXY(60,231);
+            $pdf->Cell(0,30,utf8_decode("TSA 270"));
+            $pdf->SetXY(60,234);
+            $pdf->Cell(0,30,utf8_decode("93270 SEVRAN CEDEX"));
+
+            $nb1 = $pdf->GetStringWidth("".$nom."") + 2;
+            $pdf->SetXY(80,260);
+            $pdf->Cell($nb1,5,utf8_decode($nom),0,0,'L');
+
+            $nb2 = $pdf->GetStringWidth("".$prenom."") + 2;
+            $pdf->SetXY(80+$nb1,260);
+            $pdf->Cell($nb2,5,utf8_decode($prenom),0,0,'L');
+
+            $pdf->SetXY(80,263);
+            $pdf->Cell(0,30,utf8_decode("Ne joignez aucun autre document à votre règlement"));
+
+            $montant = '312.12';
+
+            $pdf->SetFont('times','B',8);
+
+            $nb3 = $pdf->GetStringWidth("".$montant."") + 2;
+            $pdf->SetXY(170,270);
+            $pdf->Cell($nb3,5,utf8_decode("".$montant.""),0,0,'L');
+
+            $pdf->SetXY(10, 5);
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/logo_cheque.png',180,260,10,10));
+
+            $pdf->SetFont('times','B',12);
+
+            $m = str_replace ('.', '', $montant);
+
+            $pdf->SetXY(80,290);
+            $pdf->Cell(0,5,utf8_decode("874694000035     552159540084774687946212684521   ".$m.""),0,0,'L');
+
+            $pdf->SetXY(0,180);
+            $pdf->Cell(0,100,'',0,0,'L',$pdf->Image('images/ciseau.png',30,223,180,15));
+
+            $pdf->Output();        
+        }
 }
 ?>

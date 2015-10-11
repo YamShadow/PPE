@@ -1,0 +1,3 @@
+<?php
+creationFacturePDF($visiteur,$mois);
+?>
