@@ -474,6 +474,10 @@ class PdoGsb{
             
             
             $dateModif = $laLigne2[0];
+            $isoleJours = substr($dateModif, 8);
+            $isoleMois = substr($dateModif, 5, -3);
+            $isoleAnnee = substr($dateModif, 0, -6);
+            $dateModif = $isoleJours."/".$isoleMois."/".$isoleAnnee;
             
             $numAnnee =substr( $mois,0,4);
             $numMois =substr( $mois,4,2);
@@ -550,7 +554,7 @@ class PdoGsb{
             $pdf->SetFont('Arial','',10);
             $pdf->Cell(30,5,"Frais forfait :",0,0,'L');
             $pdf->Ln();
-            $w = array(65, 35, 35, 35);
+            $w = array(90, 35, 35, 35);
             $header = array('Libelle', 'Montant unitaire', 'Quantite', 'Montant total');
             for($i=0; $i<count($header); $i++){
                 $pdf->SetFillColor(102, 163, 211);
@@ -581,6 +585,7 @@ class PdoGsb{
             $pdf->Ln();
             $w = array(65, 35, 35);
             $header2 = array('Libelle', 'Montant', 'Date');
+            $w = array(125, 35, 35);
             for($i=0; $i<count($header2); $i++){
                 $pdf->SetTextColor(255,255,255);
                 $pdf->Cell($w[$i], 7,$header2[$i], 1,0,'C', true);
@@ -592,6 +597,10 @@ class PdoGsb{
             {
                 $pdf->Cell($w[0],6,utf8_decode($col2['0']),'LR', 0, 'L', $fill);
                 $pdf->Cell($w[1],6,utf8_decode($col2['1']." euros"),'LR', 0, 'L', $fill);
+                $isoleJours = substr($col2['2'], 8);
+                $isoleMois = substr($col2['2'], 5, -3);
+                $isoleAnnee = substr($col2['2'], 0, -6);
+                $col2['2'] = $isoleJours."/".$isoleMois."/".$isoleAnnee;
                 $pdf->Cell($w[1],6,utf8_decode($col2['2']),'LR', 0, 'L', $fill);
                 if($col2['supprimer'] != 1){
                 $montantHorsFrais += $col2['1']; }
@@ -667,6 +676,7 @@ class PdoGsb{
 
             $pdf->SetXY(10, 5);
             $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/fpdf/logo_cheque.jpg',180,260,10,10));
+            $pdf->Cell(10,5,'',0,0,'L',$pdf->Image('images/signature.jpg',140,247,30,30));
 
             $pdf->SetFont('times','B',12);
 
