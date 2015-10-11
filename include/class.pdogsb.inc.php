@@ -304,12 +304,23 @@ class PdoGsb{
 		PdoGsb::$monPdo->exec($req);
 	}
         
+        /**
+         * Retourne les informations contenu dans la table visiteur.
+         * @return un tableau qui contient les valeurs que retourne la requête.
+         */
+        
 	public function getLesInfosPersonnes(){
 		$req = "select * from visiteur order by nom ASC";
 		$res = PdoGsb::$monPdo->query($req);
 		$laLigne = $res->fetchAll();
 		return $laLigne;
 	}
+        
+        /**
+         * Retourne les fiches de frais appartenent au mois entrer en parametre.
+         * @param $date : mois sour forme AAAAMM.
+         * @return un tableau qui contient les valeurs que retourne la requête.
+         */
 
         public function getFichesMoisEnCours($date)
         {
@@ -319,6 +330,12 @@ class PdoGsb{
 		$tabCR = $res->fetch();
 		return $tabCR;
         }
+        
+        /**
+         * Retourne les fiches de frais dont l'idEtat est égale à VA ou RB.
+         * @return un tableau qui contient les valeurs que retourne la requête.
+         */
+        
         public function getLesHistoFrais()
         {
                 $req = "select * from fichefrais FF join visiteur v on v.id = FF.idVisiteur where idEtat = 'VA' or idEtat = 'RB' order by idEtat DESC , dateModif DESC ";
@@ -326,6 +343,11 @@ class PdoGsb{
 		$laLigne = $res->fetchAll();
 		return $laLigne;
         }
+        /**
+         * Retourne les fiches de frais dont l'idEtat est égale à VA et l'idVisiteur est égale à la variable entrer en parametre.
+         * @param $valider : Contient un id referent a la table visiteur.
+         * @return un tableau qui contient les valeurs que retourne la requête.
+         */
         public function setLesHistoFrais($valider)
         {  
                 $mois = "select mois from fichefrais where idVisiteur='$valider' and idEtat='VA' ";
@@ -333,6 +355,10 @@ class PdoGsb{
                 $laLigne = $resMois->fetch();
                 return $laLigne;
         }
+        /**
+         * Retourne le nombre de fiches frais dont idEtat est égale à CR
+         * @return un entier.
+         */
         public function getLesNbCR()
         {
                 $req = "select * from fichefrais where idEtat = 'CR'";
@@ -340,6 +366,9 @@ class PdoGsb{
                 $count = $res->rowCount();
 		return $count;
         }
+        /**
+         * Met à jour les idEtat égale à CR en CL.
+         */
         public function setLesCRenCL()
         {
                 $req = "select * from fichefrais FF join visiteur V ON FF.idVisiteur = V.id where idEtat = 'CR'";
@@ -349,6 +378,10 @@ class PdoGsb{
                 PdoGsb::$monPdo->exec($req2);
                 $_SESSION['tabExCR'] = $laLigne; 
         }
+        /**
+         * Retourne le contenu de la table fraisforfait.
+         * @return un tableau qui contient les valeurs que retourne la requête.
+         */
         public function getLesMontantFrais(){
             
                 $req = "select * from fraisforfait";
@@ -356,7 +389,15 @@ class PdoGsb{
                 $laLigne = $res->fetchAll();
                 return $laLigne;
         }
-        
+        /**
+         * Met à jour la table lignefraishorsforfait avec les parametre d'entrer ci dessus.
+         * @param entier $idVisiteur
+         * @param entier $mois
+         * @param entier $unIdFrais
+         * @param double $montant
+         * @param caractere $libelle
+         * @param date $date
+         */
         public function majHorsFrais($idVisiteur, $mois, $unIdFrais, $montant, $libelle, $date){
 	
                 $req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle',
@@ -365,31 +406,55 @@ class PdoGsb{
                         and lignefraishorsforfait.id = '$unIdFrais'";
                 PdoGsb::$monPdo->exec($req);	
 	}
+        /**
+         * Incremente le montant après avoir validé les fraisforfait.
+         * @param entier $idVisiteur
+         * @param entier $mois
+         * @param double $montant
+         */
         public function setMontantFrais($idVisiteur, $mois, $montant){
                 
                 $req = "update fichefrais set fichefrais.montantValide = '$montant'
                         where fichefrais.idvisiteur = '$idVisiteur' and fichefrais.mois = '$mois'";
                 PdoGsb::$monPdo->exec($req);
         }
-        
+        /**
+         * Supprime les frais hors forfait de la partie comptable en modifient le libellé à SUPPRIMER.
+         * @param entier $idFrais
+         * @param caractere $libelle
+         */
        public function supprimerFraisHorsForfaitComptable($idFrais, $libelle){
                 $req = "update lignefraishorsforfait set lignefraishorsforfait.libelle = '$libelle', 
                         lignefraishorsforfait.supprimer = '1'
                         where lignefraishorsforfait.id =$idFrais ";
                 PdoGsb::$monPdo->exec($req);
 	}
+        /**
+         * Met à jour la payer à 1 selon l'id entrer en parametre, cette ligne à donc était payer. 
+         * @param entier $id
+         */
         
         public function horsFraisPayer($id){
                 $req="update lignefraishorsforfait set lignefraishorsforfait.payer = 1
                         where lignefraishorsforfait.id = $id";
                 PdoGsb::$monPdo->exec($req);      
         }
+        /**
+         * Met à jour le mois dans la table lignefraishorsforfait.
+         * @param entier $idFrais
+         * @param entier $mois
+         */
         
         function majMoisHorsFrais($idFrais, $mois){
                 $req = "update lignefraishorsforfait set lignefraishorsforfait.mois = '$mois'
                         where lignefraishorsforfait.id = $idFrais";
                 PdoGsb::$monPdo->exec($req);
            }
+           /**
+            * Genere une facture en pdf par rapport aux variables d'entrer.
+            * @param entier $visiteur
+            * @param entier $mois
+            */
         function creationFacturePDF($visiteur,$mois)
         {
             ob_end_clean();
