@@ -1,5 +1,6 @@
 <div id="contenu">
 <!-- <form name="formValidFrais" method="post" action=""> -->
+<h3><strong>Frais du mois : <?php echo $isoleMois."/".$isoleAnnee; ?></strong></h3>
 	<div><h2>Frais au forfait </h2></div>
         <form action="http://localhost/SLAM5/PPE/Modification-Frais-Comptable" method="POST">
                 <table style="color:white;" border="1">

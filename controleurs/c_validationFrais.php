@@ -9,14 +9,26 @@ switch($action){
 		break;
         case 'selectionMois':
             $idVisiteur = $_POST['lstVisiteur'];
+            $_SESSION['idVisiteur'] = $idVisiteur;
             $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
             include("vues/v_selectionMois.php");
             break;
         case 'affichage':
-            if(isset($_POST['idVisiteur'])){
-            $idVisiteur = $_POST['idVisiteur'];
+            if(isset($_POST['idVisiteur']) || isset($_SESSION['idVisiteur'])){
+                if(isset($_POST['idVisiteur'])){
+                $idVisiteur = $_POST['idVisiteur']; }
+                else if(isset($_SESSION['idVisiteur'])){
+                  $idVisiteur = $_SESSION['idVisiteur'];
+                }
             $res = $pdo->dernierMoisSaisi($idVisiteur);
-            $leMois =$_POST['lstMois'];
+            if(isset($_POST['lstMois'])){
+                $leMois =$_POST['lstMois'];
+                $_SESSION['lstMois'] = $_POST['lstMois']; }
+                else if(isset($_SESSION['lstMois'])){
+                  $leMois = $_SESSION['lstMois'];
+                }
+            $isoleMois = substr($leMois, 4);
+            $isoleAnnee = substr($leMois, 0, -2);
             $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
             $infoMontant = $pdo->getLesMontantFrais();
            
@@ -30,7 +42,7 @@ switch($action){
             $idHorsFrais = $_REQUEST['id'];
             $libelle = "SUPPRIMER - ".$_REQUEST['libelle'];
             $pdo->supprimerFraisHorsForfaitComptable($idHorsFrais, $libelle);
-            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+            header('location: http://localhost/SLAM5/PPE/Fiche-Comptable');
             break;
         case 'modificationFrais' :
             $mois = $_REQUEST['lemois'];
@@ -56,7 +68,7 @@ switch($action){
                 }
                 $pdo->majEtatFicheFrais($idVisiteur,$mois,$etat);
             }
-            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+            header('location: http://localhost/SLAM5/PPE/Fiche-Comptable');
             break;
         case 'modificationHorsFrais':
             $libelle = $_REQUEST['hfLib1'];
@@ -86,7 +98,7 @@ switch($action){
            
             $nbJustificatifs = $_REQUEST['hcMontant'];
             $pdo->majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs);
-            header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+            header('location: http://localhost/SLAM5/PPE/Fiche-Comptable');
             break;
             
         case 'reportMois':
@@ -105,7 +117,7 @@ switch($action){
                 $mois = $isoleAnnee.''.$isoleMois;        
             }
             $pdo->majMoisHorsFrais($idFrais, $mois);
-             header('location: http://localhost/SLAM5/PPE/Choix-Visiteur');
+             header('location: http://localhost/SLAM5/PPE/Fiche-Comptable');
             break;
 }
 ?>
