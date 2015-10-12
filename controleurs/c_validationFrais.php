@@ -15,6 +15,7 @@ switch($action){
         case 'affichage':
             if(isset($_POST['idVisiteur'])){
             $idVisiteur = $_POST['idVisiteur'];
+            $res = $pdo->dernierMoisSaisi($idVisiteur);
             $leMois =$_POST['lstMois'];
             $lesInfoFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
             $infoMontant = $pdo->getLesMontantFrais();
